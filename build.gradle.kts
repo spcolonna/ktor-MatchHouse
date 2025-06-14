@@ -17,6 +17,8 @@ repositories {
 }
 
 dependencies {
+    testImplementation("io.kotest:kotest-assertions-core-jvm:5.5.5")
+
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.serialization.kotlinx.json)
