@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="domain.CreatePropertyUseCaseUseCaseTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-06-14T01:16:07" hostname="192.168.1.5" time="0.117">
+  <properties/>
+  <testcase name="create a new property" classname="domain.CreatePropertyUseCaseUseCaseTest" time="0.115"/>
+  <testcase name="create another new property" classname="domain.CreatePropertyUseCaseUseCaseTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
