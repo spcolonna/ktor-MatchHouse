@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.delivery.request.LoginUserRequest
 import delivery.presenter.UserPresenter
 import delivery.providers.UseCaseProvider
 import delivery.request.CreateUserRequest
@@ -17,6 +18,17 @@ fun Application.configureRouting() {
     routing {
         get("/") {
             call.respondText("Hello World!")
+        }
+
+        route("/login") {
+            post {
+                val body = call.receive<LoginUserRequest>()
+
+                userPresenter.loginUser(
+                    body,
+                    ResponseBuilder(call)
+                )
+            }
         }
 
         route("/user") {
