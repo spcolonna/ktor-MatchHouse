@@ -3,6 +3,6 @@ package infra.interfaces
 import domain.entities.Property
 
 interface ICreatePropertyRepository {
-    fun store(property: Property)
+    fun store(property: Property): String
 
 }
