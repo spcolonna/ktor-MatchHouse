@@ -16,7 +16,7 @@ import io.ktor.server.routing.*
 fun Application.configureRouting() {
 
     val userPresenter = UserPresenter(UseCaseProvider.getCreateUser(), UseCaseProvider.getDeleteUser())
-    val housePresenter = HousePresenter(UseCaseProvider.getCreateProperty())
+    val housePresenter = HousePresenter(UseCaseProvider.getCreateProperty(), UseCaseProvider.getGetHouses())
 
 
     routing {
@@ -62,6 +62,10 @@ fun Application.configureRouting() {
             post {
                 val body = call.receive<CreateHouseRequest>()
                 housePresenter.createHouse(body, ResponseBuilder(call))
+            }
+
+            get {
+                housePresenter.getAllHouses(ResponseBuilder(call))
             }
         }
     }
