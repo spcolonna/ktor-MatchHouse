@@ -6,10 +6,13 @@ import com.example.delivery.request.UserPositionRequest
 import delivery.dtos.CreatePropertyDto
 import delivery.response.ResponseBuilder
 import domain.useCases.property.CreatePropertyUseCase
+import domain.useCases.property.GetHousesUseCase
 import java.util.*
 
 
-class HousePresenter(val createPropertyUseCase: CreatePropertyUseCase
+class HousePresenter(
+    private val createPropertyUseCase: CreatePropertyUseCase,
+    private val getHousesUseCase: GetHousesUseCase
 ) {
     fun nearbyHouses(body: UserPositionRequest, responseBuilder: ResponseBuilder) {
         println("Buscando casas cerca de lat: $body.lat, lon: $body.lon")
@@ -30,6 +33,16 @@ class HousePresenter(val createPropertyUseCase: CreatePropertyUseCase
             val dto = CreatePropertyDto.fromRequest(request)
             val newHouseId = createPropertyUseCase.execute(dto)
             responseBuilder.onValid(mapOf("status" to "ok", "houseId" to newHouseId))
+        } catch (e: Exception) {
+            println("Error al crear la casa: ${e.message}")
+            responseBuilder.onError("No se pudo crear la propiedad.")
+        }
+    }
+
+    fun getAllHouses(responseBuilder: ResponseBuilder) {
+        try {
+            val houses = getHousesUseCase.execute()
+            responseBuilder.onValid(houses)
         } catch (e: Exception) {
             println("Error al crear la casa: ${e.message}")
             responseBuilder.onError("No se pudo crear la propiedad.")
