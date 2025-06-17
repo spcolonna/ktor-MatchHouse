@@ -1,6 +1,7 @@
 package com.example
 
 import com.example.delivery.presenter.HousePresenter
+import com.example.delivery.request.CreateHouseRequest
 import com.example.delivery.request.LoginUserRequest
 import com.example.delivery.request.UserPositionRequest
 import delivery.presenter.UserPresenter
@@ -15,7 +16,7 @@ import io.ktor.server.routing.*
 fun Application.configureRouting() {
 
     val userPresenter = UserPresenter(UseCaseProvider.getCreateUser(), UseCaseProvider.getDeleteUser())
-    val housePresenter = HousePresenter()
+    val housePresenter = HousePresenter(UseCaseProvider.getCreateProperty())
 
 
     routing {
@@ -54,6 +55,13 @@ fun Application.configureRouting() {
                     UserPositionRequest(lat, lon),
                     ResponseBuilder(call)
                 )
+            }
+        }
+
+        route("/house") {
+            post {
+                val body = call.receive<CreateHouseRequest>()
+                housePresenter.createHouse(body, ResponseBuilder(call))
             }
         }
     }

@@ -1,13 +1,15 @@
 package com.example.delivery.presenter
 
 import com.example.delivery.dtos.House
+import com.example.delivery.request.CreateHouseRequest
 import com.example.delivery.request.UserPositionRequest
+import delivery.dtos.CreatePropertyDto
 import delivery.response.ResponseBuilder
+import domain.useCases.property.CreatePropertyUseCase
 import java.util.*
 
 
-class HousePresenter(
-
+class HousePresenter(val createPropertyUseCase: CreatePropertyUseCase
 ) {
     fun nearbyHouses(body: UserPositionRequest, responseBuilder: ResponseBuilder) {
         println("Buscando casas cerca de lat: $body.lat, lon: $body.lon")
@@ -23,5 +25,14 @@ class HousePresenter(
         responseBuilder.onValid(nearbyHouses)
     }
 
-
+    fun createHouse(request: CreateHouseRequest, responseBuilder: ResponseBuilder) {
+        try {
+            val dto = CreatePropertyDto.fromRequest(request)
+            val newHouseId = createPropertyUseCase.execute(dto)
+            responseBuilder.onValid(mapOf("status" to "ok", "houseId" to newHouseId))
+        } catch (e: Exception) {
+            println("Error al crear la casa: ${e.message}")
+            responseBuilder.onError("No se pudo crear la propiedad.")
+        }
+    }
 }

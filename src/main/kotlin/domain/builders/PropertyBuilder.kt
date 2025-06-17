@@ -6,6 +6,14 @@ import domain.entities.Property
 import domain.interfaces.IIdGenerator
 
 class PropertyBuilder(private val idGenerator: IIdGenerator) {
-    fun fromDto(dto: CreatePropertyDto) = Property(idGenerator.execute(), Point(dto.lon, dto.lat))
+    fun fromDto(dto: CreatePropertyDto) = Property(
+        idGenerator.execute(),
+        Point(dto.lon, dto.lat),
+        dto.title,
+        dto.price,
+        dto.bedrooms,
+        dto.bathrooms,
+        dto.area
+    )
 
 }

@@ -14,4 +14,8 @@ class ResponseBuilder(private val call: ApplicationCall) {
     fun onError()  = runBlocking {
         call.respond(HttpStatusCode.Conflict)
     }
+
+    fun onError(element: Any)  = runBlocking {
+        call.respond(HttpStatusCode.Conflict, element)
+    }
 }

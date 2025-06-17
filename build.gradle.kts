@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
     testImplementation("io.kotest:kotest-assertions-core-jvm:5.5.5")
+    implementation("com.google.firebase:firebase-admin:9.3.0")
 
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.server.core)
