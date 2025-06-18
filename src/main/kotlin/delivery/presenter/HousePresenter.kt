@@ -5,6 +5,7 @@ import com.example.delivery.request.CreateHouseRequest
 import com.example.delivery.request.UserPositionRequest
 import delivery.dtos.CreatePropertyDto
 import delivery.response.ResponseBuilder
+import domain.entities.Point
 import domain.useCases.property.CreatePropertyUseCase
 import domain.useCases.property.GetHousesUseCase
 import java.util.*
@@ -18,11 +19,33 @@ class HousePresenter(
         println("Buscando casas cerca de lat: $body.lat, lon: $body.lon")
 
         val nearbyHouses = listOf(
-            House(UUID.randomUUID().toString(), "Chalet Moderno", "Av. Principal 123", 250000.0, "url_a_imagen_1", 1.2),
-            House(UUID.randomUUID().toString(), "Apartamento Céntrico", "Calle Secundaria 45", 180000.0, "url_a_imagen_2", 2.5),
-            House(UUID.randomUUID().toString(), "Casa con Jardín", "Ruta 8 km 22", 320000.0, "url_a_imagen_3", 3.1),
-            House(UUID.randomUUID().toString(), "Loft Industrial", "Distrito de Diseño", 210000.0, "url_a_imagen_4", 4.8),
-            House(UUID.randomUUID().toString(), "Vivienda Familiar", "Residencial Los Pinos", 285000.0, "url_a_imagen_5", 5.2)
+            House(
+                id = UUID.randomUUID().toString(),
+                title = "Chalet Moderno en Carrasco",
+                point = Point(lat = -34.88, lon = -56.05),
+                price = 350000,
+                bedrooms = 4,
+                bathrooms = 3,
+                area = 220.0
+            ),
+            House(
+                id = UUID.randomUUID().toString(),
+                title = "Apartamento Céntrico",
+                point = Point(lat = -34.90, lon = -56.18),
+                price = 180000,
+                bedrooms = 2,
+                bathrooms = 1,
+                area = 75.5
+            ),
+            House(
+                id = UUID.randomUUID().toString(),
+                title = "Casa con Jardín en el Prado",
+                point = Point(lat = -34.85, lon = -56.20),
+                price = 320000,
+                bedrooms = 5,
+                bathrooms = 4,
+                area = 300.0
+            )
         )
 
         responseBuilder.onValid(nearbyHouses)

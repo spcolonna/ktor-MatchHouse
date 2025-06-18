@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="domain.CreatePropertyUseCaseUseCaseTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-06-17T19:35:19" hostname="192.168.1.7" time="0.125">
+<testsuite name="domain.CreatePropertyUseCaseUseCaseTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-06-18T12:08:00" hostname="192.168.1.7" time="0.127">
   <properties/>
-  <testcase name="create a new property" classname="domain.CreatePropertyUseCaseUseCaseTest" time="0.125"/>
+  <testcase name="create a new property" classname="domain.CreatePropertyUseCaseUseCaseTest" time="0.127"/>
   <testcase name="create another new property" classname="domain.CreatePropertyUseCaseUseCaseTest" time="0.0"/>
   <testcase name="add new properties to property house" classname="domain.CreatePropertyUseCaseUseCaseTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
