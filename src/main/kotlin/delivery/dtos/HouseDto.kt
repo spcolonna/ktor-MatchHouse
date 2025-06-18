@@ -1,13 +1,15 @@
 package com.example.delivery.dtos
 
+import domain.entities.Point
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class House(
-    val id: String,
+    var id: String,
+    val point: Point,
     val title: String,
-    val address: String,
-    val price: Double,
-    val imageUrl: String,
-    val distanceKm: Double
+    val price: Int,
+    val bedrooms: Int,
+    val bathrooms: Int,
+    val area: Double
 ){}
