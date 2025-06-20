@@ -1,10 +1,9 @@
-package domain
+package com.example.domain.useCases.users
 
 import com.example.delivery.dtos.CreateUserDto
 import com.example.delivery.enums.UserRole
 import domain.entities.User
 import domain.useCases.user.CreateUserUseCase
-import doubles.IdGeneratorDouble
 import doubles.UserRepositoryDouble
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -16,7 +15,7 @@ import kotlin.test.Test
 class CreateUserUseCaseTests {
 
     @ParameterizedTest
-    @CsvSource("id,name,mail,phoneNumber,AGENCY,AgenciaPepe","anotherId,anotherName,anotherMail,anotherPhoneNumber,PERSON, ")
+    @CsvSource("id,name,mail,phoneNumber,AGENCY,AgenciaPepe","anotherId,anotherName,anotherMail,anotherPhoneNumber,PERSON,nada")
     fun `return new user`(id: String, name: String, mail: String, phoneNumber: String, role: UserRole, agencyName: String){
         val expected = User(id, name, mail, phoneNumber, role, agencyName)
         val userRepository = UserRepositoryDouble()

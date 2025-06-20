@@ -6,7 +6,7 @@ import infra.interfaces.IUserRepository
 
 class UserRepositoryDouble : IUserRepository {
 
-
+    var lastIdCalled: String = ""
     var userStored: User = User("","","","", UserRole.PERSON, "")
     var isUserExist = false
     var lastUserIdDeleted: String = ""
@@ -17,7 +17,7 @@ class UserRepositoryDouble : IUserRepository {
     }
 
     override fun getUserByMail(mail: String) =
-        if(userStored.mail == mail)
+        if (userStored.mail == mail)
             userStored
         else
             null
@@ -39,7 +39,10 @@ class UserRepositoryDouble : IUserRepository {
         userStored = user
     }
 
-    override fun getUser(userId: String) = userStored
+    override fun getUser(userId: String): User {
+        lastIdCalled = userId
+        return userStored
+    }
 
     fun withUserExist(isUserExist: Boolean): UserRepositoryDouble {
         this.isUserExist = isUserExist

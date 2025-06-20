@@ -15,7 +15,11 @@ import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
 
-    val userPresenter = UserPresenter(UseCaseProvider.getCreateUser(), UseCaseProvider.getDeleteUser())
+    val userPresenter = UserPresenter(
+        UseCaseProvider.getCreateUser(),
+        UseCaseProvider.getUser(),
+        UseCaseProvider.getModifyUser(),
+        UseCaseProvider.getDeleteUser())
     val housePresenter = HousePresenter(UseCaseProvider.getCreateProperty(), UseCaseProvider.getGetHouses())
 
 
@@ -38,9 +42,18 @@ fun Application.configureRouting() {
         route("/user") {
             post {
                 val body = call.receive<CreateUserRequest>()
-
+                println("llego el create con body: " + body)
                 userPresenter.createUser(
                     body,
+                    ResponseBuilder(call)
+                )
+            }
+
+            get("/{id}") {
+                val id = call.parameters["id"]
+
+                userPresenter.getUser(
+                    id.toString(),
                     ResponseBuilder(call)
                 )
             }
