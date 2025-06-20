@@ -3,7 +3,8 @@ package infra.interfaces
 import domain.entities.Favourites
 
 interface IFavouriteRepository {
-    fun store(favourites: Favourites)
+    fun store(userId: String, houseId: String)
     fun get(idUser: String): Favourites
-    fun has(idUser: String): Boolean
+    fun exists(userId: String, houseId: String): Boolean
+    fun remove(userId: String, houseId: String)
 }

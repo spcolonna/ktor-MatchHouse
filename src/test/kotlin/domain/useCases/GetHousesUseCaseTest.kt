@@ -22,7 +22,7 @@ class GetHousesUseCaseTest {
     fun `get all houses`(){
         val property = givenAProperty("id", Point(-1.1,1.0))
         val expected = listOf(property)
-        val houseRepository = HouseRepositoryDouble().with(expected)
+        val houseRepository = HouseRepositoryDouble().withListOfProperties(expected)
         val useCase = GetHousesUseCase(houseRepository)
 
         val result = useCase.execute()

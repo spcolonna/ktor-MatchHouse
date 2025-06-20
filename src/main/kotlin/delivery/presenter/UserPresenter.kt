@@ -1,9 +1,11 @@
 package delivery.presenter
 
+import com.example.delivery.request.AddFavoriteRequest
 import com.example.delivery.request.LoginUserRequest
 import com.example.delivery.response.LoginUserResponse
 import delivery.response.ResponseBuilder
 import delivery.request.CreateUserRequest
+import domain.useCases.favourites.AddFavouritesUseCase
 import domain.useCases.user.CreateUserUseCase
 import domain.useCases.user.DeleteUserUseCase
 import domain.useCases.user.GetUserUseCase
@@ -15,6 +17,7 @@ class UserPresenter(
     private val getUserUseCase: GetUserUseCase,
     private val modifyUserUseCase: ModifyUserUseCase,
     private val deleteUserUseCase: DeleteUserUseCase,
+    private val addFavouritesUseCase: AddFavouritesUseCase
 ) {
 
     fun createUser(request: CreateUserRequest, responseBuilder: ResponseBuilder) {
@@ -45,5 +48,14 @@ class UserPresenter(
     fun getUser(id: String, responseBuilder: ResponseBuilder) =
         responseBuilder.onValid(getUserUseCase.execute(id))
 
+    fun addFavourite(request: AddFavoriteRequest, responseBuilder: ResponseBuilder) {
+        if(addFavouritesUseCase.validate(request.userId, request.houseId))
+            responseBuilder.onValid(addFavouritesUseCase.execute(request.toDto()))
+        else
+            responseBuilder.onError()
+    }
 
+    fun deleteFavourite(request: AddFavoriteRequest, responseBuilder: ResponseBuilder) {
+        TODO("Not yet implemented")
+    }
 }

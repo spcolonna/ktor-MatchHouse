@@ -1,6 +1,7 @@
 package com.example
 
 import com.example.delivery.presenter.HousePresenter
+import com.example.delivery.request.AddFavoriteRequest
 import com.example.delivery.request.CreateHouseRequest
 import com.example.delivery.request.LoginUserRequest
 import com.example.delivery.request.UserPositionRequest
@@ -19,7 +20,8 @@ fun Application.configureRouting() {
         UseCaseProvider.getCreateUser(),
         UseCaseProvider.getUser(),
         UseCaseProvider.getModifyUser(),
-        UseCaseProvider.getDeleteUser())
+        UseCaseProvider.getDeleteUser(),
+        UseCaseProvider.getAddFavourite())
     val housePresenter = HousePresenter(UseCaseProvider.getCreateProperty(), UseCaseProvider.getGetHouses())
 
 
@@ -54,6 +56,26 @@ fun Application.configureRouting() {
 
                 userPresenter.getUser(
                     id.toString(),
+                    ResponseBuilder(call)
+                )
+            }
+
+            post("/{userId}/favorites/{houseId}") {
+                val userId = call.parameters["userId"]
+                val houseId = call.parameters["houseId"]
+
+                userPresenter.addFavourite(
+                    AddFavoriteRequest(userId.toString(), houseId.toString()),
+                    ResponseBuilder(call)
+                )
+            }
+
+            delete("/{userId}/favorites/{houseId}") {
+                val userId = call.parameters["userId"]
+                val houseId = call.parameters["houseId"]
+
+                userPresenter.deleteFavourite(
+                    AddFavoriteRequest(userId.toString(), houseId.toString()),
                     ResponseBuilder(call)
                 )
             }

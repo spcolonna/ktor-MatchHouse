@@ -14,7 +14,7 @@ class GetListFavouriteUseCaseTest {
         val idProperty = "idProperty"
         val expected = listOf(idProperty)
         val idUser = "idUser"
-        val repo = FavouritesRepositoryDouble(Favourites(idUser, listOf(idProperty)))
+        val repo = FavouritesRepositoryDouble().withFavourite(Favourites(idUser, listOf(idProperty)))
         val useCase = GetListFavouriteUseCase(repo)
         
         val result = useCase.execute(idUser)
@@ -27,7 +27,7 @@ class GetListFavouriteUseCaseTest {
         val idProperty = "anotherIdProperty"
         val expected = listOf(idProperty)
         val idUser = "anotherIdUser"
-        val repo = FavouritesRepositoryDouble(Favourites(idUser, listOf(idProperty)))
+        val repo = FavouritesRepositoryDouble().withFavourite(Favourites(idUser, listOf(idProperty)))
         val useCase = GetListFavouriteUseCase(repo)
 
         val result = useCase.execute(idUser)
@@ -37,7 +37,7 @@ class GetListFavouriteUseCaseTest {
 
     @Test
     fun `return empty list when user dont have a favourite`(){
-        val repo = FavouritesRepositoryDouble(Favourites("idUser", listOf("idProperty")))
+        val repo = FavouritesRepositoryDouble().withFavourite(Favourites("idUser", listOf("idProperty")))
         val useCase = GetListFavouriteUseCase(repo)
 
         val result = useCase.execute("anotherIdUser")
