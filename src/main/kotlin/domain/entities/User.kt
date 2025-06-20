@@ -10,19 +10,20 @@ data class User(
     val role: UserRole,
     val agencyName: String){
     companion object {
-        fun fromMap(data: Map<String, Any>, documentId: String): User {
-            val role = when (data["role"] as? String) {
-                "agency" -> UserRole.AGENCY
+        fun fromMap(data: Map<String, Any>?, documentId: String): User {
+            val roleString = data?.get("role") as? String
+            val role = when (roleString) {
+                "AGENCY" -> UserRole.AGENCY
                 else -> UserRole.PERSON
             }
 
             return User(
                 id = documentId,
-                mail = data["mail"] as? String ?: "",
-                name = data["name"] as? String ?: "",
-                phoneNumber = data["phoneNumber"] as? String ?: "",
+                mail = data?.get("mail") as? String ?: "",
+                name = data?.get("name") as? String ?: "",
+                phoneNumber = data?.get("phoneNumber") as? String ?: "",
                 role = role,
-                agencyName = data["agencyName"] as? String ?: ""
+                agencyName = data?.get("agencyName") as? String ?: ""
             )
         }
     }

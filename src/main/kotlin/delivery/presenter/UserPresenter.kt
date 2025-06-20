@@ -6,18 +6,23 @@ import delivery.response.ResponseBuilder
 import delivery.request.CreateUserRequest
 import domain.useCases.user.CreateUserUseCase
 import domain.useCases.user.DeleteUserUseCase
+import domain.useCases.user.GetUserUseCase
+import domain.useCases.user.ModifyUserUseCase
 import java.util.*
 
 class UserPresenter(
     private val createUserUserCase: CreateUserUseCase,
+    private val getUserUseCase: GetUserUseCase,
+    private val modifyUserUseCase: ModifyUserUseCase,
     private val deleteUserUseCase: DeleteUserUseCase,
 ) {
 
     fun createUser(request: CreateUserRequest, responseBuilder: ResponseBuilder) {
         if(createUserUserCase.validate(request.mail))
             responseBuilder.onValid(createUserUserCase.execute(request.toDto()))
-        else
-            responseBuilder.onError()
+        else{
+            responseBuilder.onValid(modifyUserUseCase.execute(request.toDto()))
+        }
     }
 
     fun deleteUser(userId: String, responseBuilder: ResponseBuilder) {
@@ -36,6 +41,9 @@ class UserPresenter(
         )
         responseBuilder.onValid(response)
     }
+
+    fun getUser(id: String, responseBuilder: ResponseBuilder) =
+        responseBuilder.onValid(getUserUseCase.execute(id))
 
 
 }

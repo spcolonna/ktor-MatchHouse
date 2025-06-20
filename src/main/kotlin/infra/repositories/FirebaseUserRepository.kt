@@ -42,7 +42,36 @@ class FirebaseUserRepository : IUserRepository {
     }
 
     override fun userExists(userId: String): Boolean {
-        TODO("Not yet implemented")
+        val documentReference = db.collection(documentName).document(userId)
+        val documentSnapshot = documentReference.get().get()
+
+        return documentSnapshot.exists()
+    }
+
+    override fun getUser(userId: String): User {
+        val documentReference = db.collection(documentName).document(userId)
+        val documentSnapshot = documentReference.get().get()
+
+        if (documentSnapshot.exists()) {
+            return User.fromMap(documentSnapshot.data, documentSnapshot.id)
+        } else {
+            throw NoSuchElementException("No se encontró un usuario con el ID: $userId en Firestore.")
+        }
+    }
+
+    override fun update(user: User) {
+        val userDocument = db.collection(documentName).document(user.id)
+
+        val updatedData = mapOf(
+            "name" to user.name,
+            "phoneNumber" to user.phoneNumber,
+            "role" to user.role.name.uppercase(),
+            "agencyName" to user.agencyName
+        )
+
+        userDocument.update(updatedData).get()
+
+        println("Perfil de usuario actualizado en Firestore con ID: ${user.id}")
     }
 
     override fun deleteUser(userId: String) {
@@ -50,14 +79,6 @@ class FirebaseUserRepository : IUserRepository {
     }
 
     override fun getStoredUser(): User {
-        TODO("Not yet implemented")
-    }
-
-    override fun update(user: User) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getUser(userId: String): User {
         TODO("Not yet implemented")
     }
 }

@@ -1,4 +1,4 @@
-package domain
+package com.example.domain.useCases.users
 
 import com.example.delivery.enums.UserRole
 import domain.entities.User
