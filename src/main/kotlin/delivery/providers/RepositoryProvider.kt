@@ -1,14 +1,11 @@
 package delivery.providers
 
 import com.example.infra.repositories.FirebasePropertyRepository
-import com.example.infra.repositories.UserRepository
-import infra.interfaces.ICreatePropertyRepository
-import infra.interfaces.IUserRepository
+import com.example.infra.repositories.FirebaseUserRepository
 
 object RepositoryProvider {
-    fun getUser(): IUserRepository {
-        return UserRepository()
-    }
+
+    fun getUser() = FirebaseUserRepository()
 
     fun getCreateProperty() = FirebasePropertyRepository()
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="domain.CreateUserUseCaseTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-06-18T12:08:00" hostname="192.168.1.7" time="0.001">
+<testsuite name="domain.CreateUserUseCaseTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-06-20T11:39:22" hostname="192.168.1.7" time="0.001">
   <properties/>
-  <testcase name="validate true - mail not exist" classname="domain.CreateUserUseCaseTests" time="0.0"/>
+  <testcase name="validate true - mail not exist" classname="domain.CreateUserUseCaseTests" time="0.001"/>
   <testcase name="validate false - mail exist" classname="domain.CreateUserUseCaseTests" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

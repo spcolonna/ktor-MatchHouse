@@ -1,6 +1,7 @@
 package domain
 
 import com.example.delivery.dtos.CreateUserDto
+import com.example.delivery.enums.UserRole
 import domain.entities.User
 import domain.useCases.user.CreateUserUseCase
 import doubles.IdGeneratorDouble
@@ -15,17 +16,15 @@ import kotlin.test.Test
 class CreateUserUseCaseTests {
 
     @ParameterizedTest
-    @CsvSource("id,name,mail,password","anotherId,anotherName,anotherMail,anotherPassword")
-    fun `return new user`(id: String, name: String, mail: String, password: String){
-        val expected = User(id, name, mail, password)
-        val idGenerator = IdGeneratorDouble(id)
+    @CsvSource("id,name,mail,phoneNumber,AGENCY,AgenciaPepe","anotherId,anotherName,anotherMail,anotherPhoneNumber,PERSON, ")
+    fun `return new user`(id: String, name: String, mail: String, phoneNumber: String, role: UserRole, agencyName: String){
+        val expected = User(id, name, mail, phoneNumber, role, agencyName)
         val userRepository = UserRepositoryDouble()
-        val dto = CreateUserDto(name, mail, password)
-        val useCase = CreateUserUseCase(userRepository, idGenerator)
+        val dto = CreateUserDto(id, name, mail, phoneNumber, role, agencyName)
+        val useCase = CreateUserUseCase(userRepository)
 
-        val result = useCase.execute(dto)
+        useCase.execute(dto)
 
-        result.shouldBe(id)
         userRepository.userStored.shouldBe(expected)
     }
 
@@ -33,7 +32,7 @@ class CreateUserUseCaseTests {
     fun `validate true - mail not exist`(){
         val mail = "mail"
         val userRepository = UserRepositoryDouble()
-        val useCase = CreateUserUseCase(userRepository, IdGeneratorDouble(""))
+        val useCase = CreateUserUseCase(userRepository)
 
         val result = useCase.validate(mail)
 
@@ -43,8 +42,8 @@ class CreateUserUseCaseTests {
     @Test
     fun `validate false - mail exist`(){
         val mail = "anotherMail"
-        val userRepository = UserRepositoryDouble().withUser(User("","",mail,""))
-        val useCase = CreateUserUseCase(userRepository, IdGeneratorDouble(""))
+        val userRepository = UserRepositoryDouble().withUser(User("","",mail,"", UserRole.PERSON,""))
+        val useCase = CreateUserUseCase(userRepository)
 
         val result = useCase.validate(mail)
 

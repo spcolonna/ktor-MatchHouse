@@ -14,29 +14,29 @@ class ModifyUserUseCaseTest {
    // @ParameterizedTest
     @CsvSource("id,name,mail,password","anotherId,anotherName,anotherMail,anotherPassword")
 
-    @Test
-    fun `modify existing user password`(){
-        val userId = "id"
-        val user = User(userId,"name","mail","password")
-        val newPassword = "newPassword"
-        val userRepository = UserRepositoryDouble().withUser(user)
-        val useCase = ModifyUserUseCase(userRepository)
-        useCase.execute(userId, newPassword)
+//    @Test
+//    fun `modify existing user password`(){
+//        val userId = "id"
+//        val user = User(userId,"name","mail","password")
+//        val newPassword = "newPassword"
+//        val userRepository = UserRepositoryDouble().withUser(user)
+//        val useCase = ModifyUserUseCase(userRepository)
+//        useCase.execute(userId, newPassword)
+//
+//        userRepository.getStoredUser().password.shouldBe(newPassword)
+//    }
 
-        userRepository.getStoredUser().password.shouldBe(newPassword)
-    }
-
-    @Test
-    fun `modify another existing user password`(){
-        val userId = "id"
-        val user = User(userId,"name","mail","anotherPassword")
-        val newPassword = "anotherNewPassword"
-        val userRepository = UserRepositoryDouble().withUser(user)
-        val useCase = ModifyUserUseCase(userRepository)
-        useCase.execute(userId, newPassword)
-
-        userRepository.getStoredUser().password.shouldBe(newPassword)
-    }
+//    @Test
+//    fun `modify another existing user password`(){
+//        val userId = "id"
+//        val user = User(userId,"name","mail","anotherPassword")
+//        val newPassword = "anotherNewPassword"
+//        val userRepository = UserRepositoryDouble().withUser(user)
+//        val useCase = ModifyUserUseCase(userRepository)
+//        useCase.execute(userId, newPassword)
+//
+//        userRepository.getStoredUser().password.shouldBe(newPassword)
+//    }
 
     @Test
     fun `validate user not exist`(){

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="domain.DeleteUserUseCaseTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-06-18T12:08:00" hostname="192.168.1.7" time="0.0">
+<testsuite name="domain.DeleteUserUseCaseTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-06-20T11:39:22" hostname="192.168.1.7" time="0.0">
   <properties/>
   <testcase name="validate true - user exists" classname="domain.DeleteUserUseCaseTests" time="0.0"/>
   <testcase name="validate false - user not exists" classname="domain.DeleteUserUseCaseTests" time="0.0"/>
