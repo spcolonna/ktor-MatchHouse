@@ -1,12 +1,13 @@
 package doubles
 
+import com.example.delivery.enums.UserRole
 import domain.entities.User
 import infra.interfaces.IUserRepository
 
 class UserRepositoryDouble : IUserRepository {
 
 
-    var userStored: User = User("","","","")
+    var userStored: User = User("","","","", UserRole.PERSON, "")
     var isUserExist = false
     var lastUserIdDeleted: String = ""
 

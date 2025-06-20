@@ -1,5 +1,6 @@
 package domain
 
+import com.example.delivery.enums.UserRole
 import domain.entities.User
 import domain.useCases.user.DeleteUserUseCase
 import doubles.UserRepositoryDouble
@@ -48,6 +49,8 @@ class DeleteUserUseCaseTests() {
     private fun givenAUser(userId: String = "id",
                            userName: String = "name",
                            mail: String = "mail",
-                           password: String = "password"
-    ) = User(userId, userName, mail, password)
+                           phoneNumber: String = "phoneNumber",
+                           role: UserRole = UserRole.PERSON,
+                           agencyName: String = "agencyName",
+    ) = User(userId, userName, mail, phoneNumber, role, agencyName)
 }
