@@ -59,4 +59,11 @@ class FirebasePropertyRepository : ICreatePropertyRepository, IHouseRepository {
             }
         }
     }
+
+    override fun houseExist(houseId: String): Boolean {
+        val documentReference = db.collection(documentName).document(houseId)
+        val documentSnapshot = documentReference.get().get()
+
+        return documentSnapshot.exists()
+    }
 }
