@@ -1,4 +1,4 @@
-package domain.favourites
+package com.example.domain.useCases.favourites
 
 import com.example.doubles.HouseRepositoryDouble
 import delivery.dtos.AddFavouriteDto
