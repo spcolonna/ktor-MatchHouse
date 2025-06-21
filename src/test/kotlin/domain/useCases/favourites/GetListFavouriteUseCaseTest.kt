@@ -1,4 +1,4 @@
-package domain.favourites
+package com.example.domain.useCases.favourites
 
 import domain.entities.Favourites
 import domain.useCases.favourites.GetListFavouriteUseCase
