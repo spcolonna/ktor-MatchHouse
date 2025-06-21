@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.domain.useCases.users.ModifyUserUseCaseTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-06-20T18:11:00" hostname="192.168.1.7" time="0.019">
+<testsuite name="com.example.domain.useCases.users.ModifyUserUseCaseTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-06-21T13:38:05" hostname="192.168.1.7" time="0.026">
   <properties/>
   <testcase name="[1] id, name, mail, phoneNumber, AGENCY, AgenciaPepe" classname="com.example.domain.useCases.users.ModifyUserUseCaseTest" time="0.0"/>
   <testcase name="[2] anotherId, anotherName, anotherMail, anotherPhoneNumber, PERSON, nada" classname="com.example.domain.useCases.users.ModifyUserUseCaseTest" time="0.0"/>
-  <testcase name="validate user exist" classname="com.example.domain.useCases.users.ModifyUserUseCaseTest" time="0.001"/>
+  <testcase name="validate user exist" classname="com.example.domain.useCases.users.ModifyUserUseCaseTest" time="0.0"/>
   <testcase name="validate user not exist" classname="com.example.domain.useCases.users.ModifyUserUseCaseTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

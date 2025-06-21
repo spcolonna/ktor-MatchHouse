@@ -1,3 +1,5 @@
+package com.example.domain.useCases.houses
+
 import com.example.doubles.HouseRepositoryDouble
 import domain.entities.Point
 import domain.entities.Property

@@ -1,4 +1,4 @@
-package domain
+package com.example.domain.useCases.houses
 
 import delivery.dtos.CreatePropertyDto
 import domain.entities.Property
@@ -10,7 +10,7 @@ import doubles.IdGeneratorDouble
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
-class CreatePropertyUseCaseUseCaseTest {
+class CreatePropertyUseCaseTest {
 
     @Test
     fun `create a new property`(){
