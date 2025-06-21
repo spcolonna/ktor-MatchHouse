@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.domain.useCases.favourites.AddFavouritesUseCaseTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-06-21T13:39:25" hostname="192.168.1.7" time="0.003">
+<testsuite name="com.example.domain.useCases.favourites.AddFavouritesUseCaseTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-06-21T14:27:42" hostname="192.168.1.7" time="0.003">
   <properties/>
   <testcase name="validate user and house exist" classname="com.example.domain.useCases.favourites.AddFavouritesUseCaseTest" time="0.002"/>
   <testcase name="NOT validate user exist but not house" classname="com.example.domain.useCases.favourites.AddFavouritesUseCaseTest" time="0.0"/>
   <testcase name="NOT validate house exist but not user" classname="com.example.domain.useCases.favourites.AddFavouritesUseCaseTest" time="0.0"/>
-  <testcase name="add another property to favourites" classname="com.example.domain.useCases.favourites.AddFavouritesUseCaseTest" time="0.001"/>
+  <testcase name="add another property to favourites" classname="com.example.domain.useCases.favourites.AddFavouritesUseCaseTest" time="0.0"/>
   <testcase name="add property to favourites" classname="com.example.domain.useCases.favourites.AddFavouritesUseCaseTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

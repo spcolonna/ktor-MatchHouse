@@ -6,7 +6,7 @@ class HouseRepositoryDouble : IHouseRepository {
     private var houses = mutableListOf<Property>()
     private var houseExist: Boolean = false
 
-    fun withListOfProperties(expected: List<Property>): IHouseRepository {
+    fun withListOfProperties(expected: List<Property>): HouseRepositoryDouble {
         houses = expected.toMutableList()
         return this
     }
@@ -21,5 +21,7 @@ class HouseRepositoryDouble : IHouseRepository {
     override fun houseExist(houseId: String): Boolean {
         return houseExist;
     }
+
+    override fun getHouseById(houseId: String) = houses.first { it.id == houseId }
 
 }

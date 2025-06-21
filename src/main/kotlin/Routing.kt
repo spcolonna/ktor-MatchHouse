@@ -16,13 +16,21 @@ import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
 
+    val housePresenter = HousePresenter(
+        UseCaseProvider.getCreateProperty(),
+        UseCaseProvider.getGetHouses(),
+        UseCaseProvider.getGetHousesById()
+    )
     val userPresenter = UserPresenter(
+        housePresenter,
         UseCaseProvider.getCreateUser(),
         UseCaseProvider.getUser(),
         UseCaseProvider.getModifyUser(),
         UseCaseProvider.getDeleteUser(),
-        UseCaseProvider.getAddFavourite())
-    val housePresenter = HousePresenter(UseCaseProvider.getCreateProperty(), UseCaseProvider.getGetHouses())
+        UseCaseProvider.getAddFavourite(),
+        UseCaseProvider.getFavourite()
+    )
+
 
 
     routing {
@@ -70,24 +78,21 @@ fun Application.configureRouting() {
                 )
             }
 
+            get("/{userId}/favorites") {
+                val userId = call.parameters["userId"]
+
+                userPresenter.getFavourites(
+                    userId.toString(),
+                    ResponseBuilder(call)
+                )
+            }
+
             delete("/{userId}/favorites/{houseId}") {
                 val userId = call.parameters["userId"]
                 val houseId = call.parameters["houseId"]
 
                 userPresenter.deleteFavourite(
                     AddFavoriteRequest(userId.toString(), houseId.toString()),
-                    ResponseBuilder(call)
-                )
-            }
-        }
-
-        route("/house/nearby") {
-            get {
-                val lat = call.parameters["lat"]?.toDoubleOrNull()
-                val lon = call.parameters["lon"]?.toDoubleOrNull()
-
-                housePresenter.nearbyHouses(
-                    UserPositionRequest(lat, lon),
                     ResponseBuilder(call)
                 )
             }
@@ -101,6 +106,16 @@ fun Application.configureRouting() {
 
             get {
                 housePresenter.getAllHouses(ResponseBuilder(call))
+            }
+
+            get("/nearby") {
+                val lat = call.parameters["lat"]?.toDoubleOrNull()
+                val lon = call.parameters["lon"]?.toDoubleOrNull()
+
+                housePresenter.nearbyHouses(
+                    UserPositionRequest(lat, lon),
+                    ResponseBuilder(call)
+                )
             }
         }
     }

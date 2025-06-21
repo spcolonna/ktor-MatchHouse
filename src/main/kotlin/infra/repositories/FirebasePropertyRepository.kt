@@ -39,24 +39,7 @@ class FirebasePropertyRepository : ICreatePropertyRepository, IHouseRepository {
         val querySnapshot = housesCollection.get().get()
 
         return querySnapshot.documents.mapNotNull { document ->
-            try {
-                val pointMap = document.get("point") as? Map<String, Any>
-                    ?: return@mapNotNull null
-                val lat = (pointMap["lat"] as? Number)?.toDouble() ?: 0.0
-                val lon = (pointMap["lon"] as? Number)?.toDouble() ?: 0.0
-                Property(
-                    id = document.getString("id")!!,
-                    title = document.getString("title")!!,
-                    point = Point(lat,lon),
-                    price = document.getLong("price")!!.toInt(),
-                    bedrooms = document.getLong("bedrooms")!!.toInt(),
-                    bathrooms = document.getLong("bathrooms")!!.toInt(),
-                    area = document.getDouble("area")!!
-                )
-            } catch (e: Exception) {
-                println("Error al parsear el documento ${document.id}: ${e.message}")
-                null
-            }
+            documentToProperty(document)
         }
     }
 
@@ -65,5 +48,45 @@ class FirebasePropertyRepository : ICreatePropertyRepository, IHouseRepository {
         val documentSnapshot = documentReference.get().get()
 
         return documentSnapshot.exists()
+    }
+
+    override fun getHouseById(houseId: String): Property {
+        val documentReference = db.collection(documentName).document(houseId)
+        val documentSnapshot = documentReference.get().get()
+        if (documentSnapshot.exists()) {
+            val property = documentToProperty(documentSnapshot)
+            if (property != null) {
+                return property
+            }
+        }
+        throw NoSuchElementException("No se encontró una casa con el ID: $houseId o el formato de datos es incorrecto.")
+    }
+
+    private fun documentToProperty(document: com.google.cloud.firestore.DocumentSnapshot): Property? {
+        return try {
+            val pointMap = document.get("point") as? Map<String, Any>
+                ?: return null // Si no hay 'point', el documento es inválido
+
+            val lat = (pointMap["lat"] as? Number)?.toDouble() ?: 0.0
+            val lon = (pointMap["lon"] as? Number)?.toDouble() ?: 0.0
+
+            val priceNum = document.get("price") as? Number ?: 0
+            val bedroomsNum = document.get("bedrooms") as? Number ?: 0
+            val bathroomsNum = document.get("bathrooms") as? Number ?: 0
+            val areaNum = document.get("area") as? Number ?: 0.0
+
+            Property(
+                id = document.getString("id") ?: document.id,
+                title = document.getString("title") ?: "Propiedad sin título",
+                point = Point(lat, lon),
+                price = priceNum.toInt(),
+                bedrooms = bedroomsNum.toInt(),
+                bathrooms = bathroomsNum.toInt(),
+                area = areaNum.toDouble()
+            )
+        } catch (e: Exception) {
+            println("Error de formato al parsear el documento ${document.id}: ${e.message}")
+            null
+        }
     }
 }
