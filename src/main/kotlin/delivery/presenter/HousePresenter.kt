@@ -1,8 +1,9 @@
 package com.example.delivery.presenter
 
-import com.example.delivery.dtos.House
+import com.example.delivery.dtos.HouseDto
 import com.example.delivery.request.CreateHouseRequest
 import com.example.delivery.request.UserPositionRequest
+import com.example.domain.useCases.property.GetHouseByIdUseCase
 import delivery.dtos.CreatePropertyDto
 import delivery.response.ResponseBuilder
 import domain.entities.Point
@@ -13,13 +14,14 @@ import java.util.*
 
 class HousePresenter(
     private val createPropertyUseCase: CreatePropertyUseCase,
-    private val getHousesUseCase: GetHousesUseCase
+    private val getHousesUseCase: GetHousesUseCase,
+    private val getHouseByIdUseCase: GetHouseByIdUseCase
 ) {
     fun nearbyHouses(body: UserPositionRequest, responseBuilder: ResponseBuilder) {
         println("Buscando casas cerca de lat: $body.lat, lon: $body.lon")
 
         val nearbyHouses = listOf(
-            House(
+            HouseDto(
                 id = UUID.randomUUID().toString(),
                 title = "Chalet Moderno en Carrasco",
                 point = Point(lat = -34.88, lon = -56.05),
@@ -28,7 +30,7 @@ class HousePresenter(
                 bathrooms = 3,
                 area = 220.0
             ),
-            House(
+            HouseDto(
                 id = UUID.randomUUID().toString(),
                 title = "Apartamento Céntrico",
                 point = Point(lat = -34.90, lon = -56.18),
@@ -37,7 +39,7 @@ class HousePresenter(
                 bathrooms = 1,
                 area = 75.5
             ),
-            House(
+            HouseDto(
                 id = UUID.randomUUID().toString(),
                 title = "Casa con Jardín en el Prado",
                 point = Point(lat = -34.85, lon = -56.20),
@@ -70,5 +72,12 @@ class HousePresenter(
             println("Error al crear la casa: ${e.message}")
             responseBuilder.onError("No se pudo crear la propiedad.")
         }
+    }
+
+    fun getHouseById(houseId: String): HouseDto? {
+        if (getHouseByIdUseCase.validate(houseId))
+            return HouseDto.from(getHouseByIdUseCase.execute(houseId))
+        else
+            return null
     }
 }

@@ -35,13 +35,12 @@ class FirebaseFavouriteRepository : IFavouriteRepository {
         return Favourites(idUser = idUser, idHouses = houseIds)
     }
 
-    override fun exists(userId: String, houseId: String): Boolean {
-        val favoriteDocument = db.collection(usersCollectionName).document(userId)
-            .collection(favoritesSubCollectionName).document(houseId)
-
-        val documentSnapshot = favoriteDocument.get().get()
-
-        return documentSnapshot.exists()
+    override fun hasFavouriteList(userId: String): Boolean {
+        val favoritesCollection = db.collection(usersCollectionName).document(userId)
+            .collection(favoritesSubCollectionName)
+        val query = favoritesCollection.limit(1)
+        val querySnapshot = query.get().get()
+        return !querySnapshot.isEmpty
     }
 
     override fun remove(userId: String, houseId: String) {

@@ -1,5 +1,6 @@
 package delivery.providers
 
+import com.example.domain.useCases.property.GetHouseByIdUseCase
 import domain.builders.PropertyBuilder
 import domain.useCases.favourites.AddFavouritesUseCase
 import domain.useCases.favourites.GetListFavouriteUseCase
@@ -32,6 +33,7 @@ object UseCaseProvider {
         )
     }
 
-    private fun getFavouriteList() = GetListFavouriteUseCase(RepositoryProvider.getFavourite())
+    fun getFavourite() = GetListFavouriteUseCase(RepositoryProvider.getFavourite())
+    fun getGetHousesById() = GetHouseByIdUseCase(RepositoryProvider.getCreateProperty())
 
 }
