@@ -17,6 +17,9 @@ class FavouritesRepositoryDouble : IFavouriteRepository {
     override fun get(idUser: String) = favourites
 
     override fun exists(userId: String, houseId: String) = favourites.idUser === userId
+    override fun remove(userId: String, houseId: String) {
+        TODO("Not yet implemented")
+    }
 
     fun withFavourite(favourites: Favourites) : FavouritesRepositoryDouble {
         this.favourites = favourites

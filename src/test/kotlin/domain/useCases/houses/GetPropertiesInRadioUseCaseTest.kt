@@ -1,7 +1,10 @@
-package domain.useCases
+package com.example.domain.useCases.houses
 
 import domain.entities.Point
 import domain.entities.Property
+import domain.useCases.CalculateDistanceUseCase
+import com.example.domain.useCases.property.GetPropertiesInRadioUseCase
+import com.example.doubles.PropertiesRepositoryDouble
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 

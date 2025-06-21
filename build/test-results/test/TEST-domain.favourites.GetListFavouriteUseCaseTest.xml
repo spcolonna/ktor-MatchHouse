@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="domain.favourites.GetListFavouriteUseCaseTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-06-20T18:11:00" hostname="192.168.1.7" time="0.0">
+<testsuite name="domain.favourites.GetListFavouriteUseCaseTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-06-21T13:38:05" hostname="192.168.1.7" time="0.001">
   <properties/>
-  <testcase name="return empty list when user dont have a favourite" classname="domain.favourites.GetListFavouriteUseCaseTest" time="0.0"/>
+  <testcase name="return empty list when user dont have a favourite" classname="domain.favourites.GetListFavouriteUseCaseTest" time="0.001"/>
   <testcase name="return another favourites form another user" classname="domain.favourites.GetListFavouriteUseCaseTest" time="0.0"/>
   <testcase name="return favourites form user" classname="domain.favourites.GetListFavouriteUseCaseTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

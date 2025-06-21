@@ -1,4 +1,4 @@
-package domain.useCases
+package com.example.infra.interfaces
 
 import domain.entities.Property
 
