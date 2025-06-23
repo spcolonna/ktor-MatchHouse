@@ -1,10 +1,10 @@
 package com.example.infra.interfaces
 
-import domain.entities.Property
+import domain.entities.House
 
 interface IHouseRepository {
-    fun getHouses(): List<Property>
+    fun getHouses(): List<House>
     fun houseExist(houseId: String): Boolean
-    fun getHouseById(houseId: String): Property
+    fun getHouseById(houseId: String): House
 
 }

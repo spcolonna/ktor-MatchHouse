@@ -1,12 +1,12 @@
 package com.example.doubles
 import com.example.infra.interfaces.IHouseRepository
-import domain.entities.Property
+import domain.entities.House
 
 class HouseRepositoryDouble : IHouseRepository {
-    private var houses = mutableListOf<Property>()
+    private var houses = mutableListOf<House>()
     private var houseExist: Boolean = false
 
-    fun withListOfProperties(expected: List<Property>): HouseRepositoryDouble {
+    fun withListOfProperties(expected: List<House>): HouseRepositoryDouble {
         houses = expected.toMutableList()
         return this
     }

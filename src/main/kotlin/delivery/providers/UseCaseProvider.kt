@@ -4,13 +4,12 @@ import com.example.domain.useCases.property.GetHouseByIdUseCase
 import domain.builders.PropertyBuilder
 import domain.useCases.favourites.AddFavouritesUseCase
 import domain.useCases.favourites.GetListFavouriteUseCase
-import domain.useCases.property.CreatePropertyUseCase
+import domain.useCases.property.CreateHouseUseCase
 import domain.useCases.property.GetHousesUseCase
 import domain.useCases.user.CreateUserUseCase
 import domain.useCases.user.DeleteUserUseCase
 import domain.useCases.user.GetUserUseCase
 import domain.useCases.user.ModifyUserUseCase
-import infra.interfaces.IFavouriteRepository
 
 object UseCaseProvider {
     fun getCreateUser() = CreateUserUseCase(RepositoryProvider.getUser())
@@ -19,7 +18,7 @@ object UseCaseProvider {
     fun getDeleteUser() = DeleteUserUseCase(RepositoryProvider.getUser())
 
     fun getCreateProperty() =
-        CreatePropertyUseCase(
+        CreateHouseUseCase(
             RepositoryProvider.getCreateProperty(),
             PropertyBuilder(ServiceProvider.getIdGenerator())
         )

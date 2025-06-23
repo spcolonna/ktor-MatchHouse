@@ -3,7 +3,7 @@ package com.example.domain.useCases.houses
 import com.example.domain.useCases.property.GetHouseByIdUseCase
 import com.example.doubles.HouseRepositoryDouble
 import domain.entities.Point
-import domain.entities.Property
+import domain.entities.House
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -48,10 +48,13 @@ class GetHouseByIdUseCaseTest {
 
     private fun givenAProperty(
         houseId: String,
+        ownerId: String = "",
         point: Point = Point(0.0,0.0),
         title: String = "",
         price: Int = 0,
         bedrooms: Int = 0,
         bathrooms: Int = 0,
-        area: Double = 0.0) = Property(houseId,point,title, price, bedrooms, bathrooms, area)
+        area: Double = 0.0,
+        imagesUrl: List<String> = listOf()
+    ) = House(houseId,ownerId,point,title, price, bedrooms, bathrooms, area, imagesUrl)
 }

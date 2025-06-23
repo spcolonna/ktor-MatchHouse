@@ -2,7 +2,7 @@ package com.example.domain.useCases.property
 
 import com.example.infra.interfaces.IPropertiesRepository
 import domain.entities.Point
-import domain.entities.Property
+import domain.entities.House
 import domain.useCases.CalculateDistanceUseCase
 
 class GetPropertiesInRadioUseCase(
@@ -10,7 +10,7 @@ class GetPropertiesInRadioUseCase(
     private val propertiesRepo: IPropertiesRepository
 ) {
 
-    fun execute(userLocation: Point, expectedDistance: Int): List<Property> {
+    fun execute(userLocation: Point, expectedDistance: Int): List<House> {
         return propertiesRepo.getAllProperties()
             .filter { calculateDistance.execute(userLocation, it.point) <= expectedDistance }
     }

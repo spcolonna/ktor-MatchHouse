@@ -1,8 +1,8 @@
 package com.example.infra.interfaces
 
-import domain.entities.Property
+import domain.entities.House
 
 interface IPropertiesRepository {
-    fun getAllProperties(): List<Property>
+    fun getAllProperties(): List<House>
 
 }
