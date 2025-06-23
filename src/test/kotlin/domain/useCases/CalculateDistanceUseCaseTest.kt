@@ -13,8 +13,8 @@ class CalculateDistanceUseCaseTest {
         val useCase = CalculateDistanceUseCase();
         val result = useCase.execute(point1,point2);
         result.shouldBe(0);
-
     }
+
     @Test
     fun `calculate Another Distance Between Two Points`(){
         val expected = 111;

@@ -29,6 +29,9 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.10.2")
 
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+    testImplementation("org.mockito:mockito-inline:5.2.0")
+
     implementation("com.google.firebase:firebase-admin:9.3.0")
 
     implementation(libs.ktor.server.content.negotiation)
