@@ -1,7 +1,7 @@
 package delivery.dtos
 
 import com.example.delivery.request.CreateHouseRequest
-
+//test
 class CreateHouseDto(
     val ownerId: String,
     val lon: Double,
