@@ -1,0 +1,48 @@
+# ====================
+# Archivos del sistema
+# ====================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# =====
+# Logs
+# =====
+*.log
+logs
+*.log.*
+*.lock
+
+# ========================
+# Archivos de compilación
+# ========================
+build/
+.gradle/
+**/build/
+**/.gradle/
+
+# =================
+# IDEs y editores
+# =================
+
+# IntelliJ IDEA / Android Studio
+.idea/
+*.iml
+shelf/
+workspace.xml
+
+# Pero permití compartir algunas configuraciones útiles
+!.idea/runConfigurations/
+!.idea/misc.xml
+!.idea/gradle.xml
+
+# =====================
+# Otros temporales
+# =====================
+*~
+*.swp
+*.tmp
