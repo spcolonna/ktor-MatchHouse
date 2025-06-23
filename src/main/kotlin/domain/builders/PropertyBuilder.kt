@@ -9,7 +9,7 @@ class PropertyBuilder(private val idGenerator: IIdGenerator) {
     fun fromDto(dto: CreateHouseDto) = House(
         idGenerator.execute(),
         dto.ownerId,
-        Point(dto.lon, dto.lat),
+        Point(dto.lat, dto.lon),
         dto.title,
         dto.price,
         dto.bedrooms,

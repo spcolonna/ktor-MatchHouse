@@ -19,7 +19,8 @@ fun Application.configureRouting() {
     val housePresenter = HousePresenter(
         UseCaseProvider.getCreateProperty(),
         UseCaseProvider.getGetHouses(),
-        UseCaseProvider.getGetHousesById()
+        UseCaseProvider.getGetHousesById(),
+        UseCaseProvider.getUserHouses()
     )
     val userPresenter = UserPresenter(
         housePresenter,
@@ -106,6 +107,11 @@ fun Application.configureRouting() {
 
             get {
                 housePresenter.getAllHouses(ResponseBuilder(call))
+            }
+
+            get("/{userId}") {
+                val userId = call.parameters["userId"]
+                housePresenter.getUserHouses(userId.toString(), ResponseBuilder(call))
             }
 
             get("/nearby") {

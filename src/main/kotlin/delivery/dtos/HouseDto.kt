@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class HouseDto(
     var id: String,
-    var ownerId: String,
+    val ownerId: String,
     val point: Point,
     val title: String,
     val price: Int,

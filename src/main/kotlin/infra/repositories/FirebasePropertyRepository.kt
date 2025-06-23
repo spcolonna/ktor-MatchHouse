@@ -90,4 +90,11 @@ class FirebasePropertyRepository : ICreateHouseRepository, IHouseRepository {
         }
         throw NoSuchElementException("No se encontró una casa con el ID: $houseId o el formato de datos es incorrecto.")
     }
+
+    override fun getUserHouses(userId: String): List<House> {
+        val housesCollection = db.collection(documentName)
+        val query = housesCollection.whereEqualTo("ownerId", userId)
+        val querySnapshot = query.get().get()
+        return querySnapshot.documents.mapNotNull { documentToProperty(it) }
+    }
 }

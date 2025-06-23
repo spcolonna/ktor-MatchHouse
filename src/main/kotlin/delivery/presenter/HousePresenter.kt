@@ -4,6 +4,7 @@ import com.example.delivery.dtos.HouseDto
 import com.example.delivery.request.CreateHouseRequest
 import com.example.delivery.request.UserPositionRequest
 import com.example.domain.useCases.property.GetHouseByIdUseCase
+import com.example.domain.useCases.property.GetUserHousesUseCase
 import delivery.dtos.CreateHouseDto
 import delivery.response.ResponseBuilder
 import domain.entities.Point
@@ -15,7 +16,8 @@ import java.util.*
 class HousePresenter(
     private val createPropertyUseCase: CreateHouseUseCase,
     private val getHousesUseCase: GetHousesUseCase,
-    private val getHouseByIdUseCase: GetHouseByIdUseCase
+    private val getHouseByIdUseCase: GetHouseByIdUseCase,
+    private val getUserHousesUseCase: GetUserHousesUseCase
 ) {
     fun nearbyHouses(body: UserPositionRequest, responseBuilder: ResponseBuilder) {
         println("Buscando casas cerca de lat: $body.lat, lon: $body.lon")
@@ -80,10 +82,17 @@ class HousePresenter(
         }
     }
 
-    fun getHouseById(houseId: String): HouseDto? {
+    fun getHouseById(houseId: String) =
         if (getHouseByIdUseCase.validate(houseId))
-            return HouseDto.from(getHouseByIdUseCase.execute(houseId))
+            HouseDto.from(getHouseByIdUseCase.execute(houseId))
         else
-            return null
-    }
+            null
+
+    fun getUserHouses(userId: String, responseBuilder: ResponseBuilder) =
+        if(getUserHousesUseCase.validate(userId)){
+            val houses = getUserHousesUseCase.execute(userId)
+            responseBuilder.onValid(houses.map { HouseDto.from(it) })
+        }else{
+            responseBuilder.onError("Usuario no encontrado")
+        }
 }
