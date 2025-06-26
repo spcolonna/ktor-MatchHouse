@@ -1,6 +1,6 @@
 package com.example.infra.interfaces
 
 interface IDiscoveryListRepository {
-    fun addHouses(houseIds: List<String>)
+    fun addHouses(userId: String, houseIds: List<String>)
 
 }

@@ -14,17 +14,19 @@ class AddHouseToDiscoveryQueueUseCaseTest {
 
     @Test
     fun `NOT add house to discovery list`(){
+        val userId = "userId"
         val userPosition = Point(0.0, 1.0)
         val discoveryListRepository = DiscoveryListRepositoryDouble()
         val useCase = AddHouseToDiscoveryQueueUseCase(discoveryListRepository, HouseRepositoryDouble(), CalculateDistanceUseCase())
 
-        useCase.execute(userPosition)
+        useCase.execute(userId, userPosition)
 
         discoveryListRepository.houseList.shouldBeEmpty()
     }
 
     @Test
     fun `add house to discovery list`(){
+        val userId = "userId"
         val userPosition = Point(0.0, 1.0)
         val houseId = "idHouse"
         val expected = listOf(houseId)
@@ -38,13 +40,15 @@ class AddHouseToDiscoveryQueueUseCaseTest {
 
         val useCase = AddHouseToDiscoveryQueueUseCase(discoveryListRepository, houseRepository, calculateUseCase)
 
-        useCase.execute(userPosition)
+        useCase.execute(userId, userPosition)
 
         discoveryListRepository.houseList.shouldBe(expected)
+        discoveryListRepository.userIdStored.shouldBe(userId)
     }
 
     @Test
     fun `add only ONE house to discovery list`(){
+        val userId = "anotherUserId"
         val userPosition = Point(0.0, 1.0)
         val houseId = "idHouse"
         val expected = listOf(houseId)
@@ -62,9 +66,10 @@ class AddHouseToDiscoveryQueueUseCaseTest {
 
         val useCase = AddHouseToDiscoveryQueueUseCase(discoveryListRepository, houseRepository, calculateUseCase)
 
-        useCase.execute(userPosition)
+        useCase.execute(userId, userPosition)
 
         discoveryListRepository.houseList.shouldBe(expected)
+        discoveryListRepository.userIdStored.shouldBe(userId)
     }
 
     private fun givenAHouse(

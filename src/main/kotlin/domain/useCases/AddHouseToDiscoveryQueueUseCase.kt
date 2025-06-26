@@ -12,10 +12,10 @@ class AddHouseToDiscoveryQueueUseCase(
 ) {
     private val maxDistance = 100
 
-    fun execute(userPosition: Point) {
+    fun execute(userId: String, userPosition: Point) {
         val houses = houseRepository.getHouses()
         val houseIds = houses.filter { calculateDistanceUseCase.execute(userPosition, it.point) <= maxDistance }.map { it.id }
-        discoveryListRepository.addHouses(houseIds)
+        discoveryListRepository.addHouses(userId, houseIds)
     }
 
 }

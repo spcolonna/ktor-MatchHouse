@@ -1,8 +1,10 @@
 package delivery.providers
 
+import com.example.domain.useCases.AddHouseToDiscoveryQueueUseCase
 import com.example.domain.useCases.property.GetHouseByIdUseCase
 import com.example.domain.useCases.property.GetUserHousesUseCase
 import domain.builders.PropertyBuilder
+import domain.useCases.CalculateDistanceUseCase
 import domain.useCases.favourites.AddFavouritesUseCase
 import domain.useCases.favourites.GetListFavouriteUseCase
 import domain.useCases.property.CreateHouseUseCase
@@ -36,5 +38,10 @@ object UseCaseProvider {
     fun getFavourite() = GetListFavouriteUseCase(RepositoryProvider.getFavourite())
     fun getGetHousesById() = GetHouseByIdUseCase(RepositoryProvider.getCreateProperty())
     fun getUserHouses() = GetUserHousesUseCase(RepositoryProvider.getUser(), RepositoryProvider.getCreateProperty())
+    fun getAddHouseToDiscoveryQueue() = AddHouseToDiscoveryQueueUseCase(
+        RepositoryProvider.getDiscovery(),
+        RepositoryProvider.getCreateProperty(),
+        getCalculateDistance())
 
+    private fun getCalculateDistance() = CalculateDistanceUseCase()
 }
