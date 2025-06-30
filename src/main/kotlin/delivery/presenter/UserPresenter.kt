@@ -1,6 +1,6 @@
 package delivery.presenter
 
-import com.example.delivery.dtos.GetFavouritesDto
+import com.example.delivery.dtos.HouseDto
 import com.example.delivery.presenter.HousePresenter
 import com.example.delivery.request.AddFavoriteRequest
 import com.example.delivery.request.LoginUserRequest
@@ -66,7 +66,7 @@ class UserPresenter(
         val userFavourites = getListFavouriteUseCase.execute(userId)
 
         if(userFavourites.isEmpty()){
-            responseBuilder.onValid(GetFavouritesDto(userId, listOf()))
+            responseBuilder.onValid(listOf<HouseDto>())
         } else {
             responseBuilder.onValid(userFavourites.map {housePresenter.getHouseById(it)})
         }
