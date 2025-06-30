@@ -17,14 +17,14 @@ class CreateHouseDto(
         fun fromRequest(request: CreateHouseRequest): CreateHouseDto {
             return CreateHouseDto(
                 request.ownerId,
-                request.lon,
-                request.lat,
+                request.point.lon,
+                request.point.lat,
                 request.title,
                 request.price,
                 request.bedrooms,
                 request.bathrooms,
                 request.area,
-                listOf()
+                request.imageUrls
             )
         }
     }
