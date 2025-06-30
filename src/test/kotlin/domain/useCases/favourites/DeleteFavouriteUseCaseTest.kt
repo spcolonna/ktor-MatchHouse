@@ -3,7 +3,6 @@ package com.example.domain.useCases.favourites
 import com.example.doubles.HouseRepositoryDouble
 import delivery.dtos.FavouriteDto
 import domain.entities.Favourites
-import domain.useCases.favourites.AddFavouritesUseCase
 import doubles.FavouritesRepositoryDouble
 import doubles.UserRepositoryDouble
 import io.kotest.matchers.booleans.shouldBeFalse
@@ -11,35 +10,35 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
-class AddFavouritesUseCaseTest {
+class DeleteFavouriteUseCaseTest {
+
     @Test
-    fun `add property to favourites`(){
+    fun `delete property to favourites`(){
         val userId = "idUser"
         val houseId = "idProperty"
         val dto = FavouriteDto(userId, houseId)
         val repository = FavouritesRepositoryDouble().withFavourite(Favourites(userId, listOf()))
-        val useCaseTestAddFavourites = AddFavouritesUseCase(repository, UserRepositoryDouble(), HouseRepositoryDouble())
+        val useCase = DeleteFavouriteUseCase(repository, UserRepositoryDouble(), HouseRepositoryDouble())
 
-        useCaseTestAddFavourites.execute(dto)
+        useCase.execute(dto)
 
-        repository.storedUserId.shouldBe(userId)
-        repository.storedHouseId.shouldBe(houseId)
+        repository.removedUserId.shouldBe(userId)
+        repository.removedHouseId.shouldBe(houseId)
     }
 
     @Test
-    fun `add another property to favourites`(){
+    fun `delete another property to favourites`(){
         val userId = "anotherIdUser"
         val houseId = "anotherIdProperty"
         val dto = FavouriteDto(userId, houseId)
         val repository = FavouritesRepositoryDouble().withFavourite(Favourites(userId, listOf()))
-        val useCaseTestAddFavourites = AddFavouritesUseCase(repository, UserRepositoryDouble(), HouseRepositoryDouble())
+        val useCase = DeleteFavouriteUseCase(repository, UserRepositoryDouble(), HouseRepositoryDouble())
 
-        useCaseTestAddFavourites.execute(dto)
+        useCase.execute(dto)
 
-        repository.storedUserId.shouldBe(userId)
-        repository.storedHouseId.shouldBe(houseId)
+        repository.removedUserId.shouldBe(userId)
+        repository.removedHouseId.shouldBe(houseId)
     }
-
 
     @Test
     fun `validate user and house exist`(){
@@ -47,7 +46,7 @@ class AddFavouritesUseCaseTest {
         val favouriteRepo = FavouritesRepositoryDouble()
         val userRepository = UserRepositoryDouble().withUserExist(true)
         val houseRepository = HouseRepositoryDouble().withHouseExist(true)
-        val useCase = AddFavouritesUseCase(favouriteRepo,userRepository,houseRepository)
+        val useCase = DeleteFavouriteUseCase(favouriteRepo,userRepository,houseRepository)
 
         val result = useCase.validate(userId, "")
 
@@ -60,7 +59,7 @@ class AddFavouritesUseCaseTest {
         val favouriteRepo = FavouritesRepositoryDouble()
         val userRepository = UserRepositoryDouble().withUserExist(true)
         val houseRepository = HouseRepositoryDouble().withHouseExist(false)
-        val useCase = AddFavouritesUseCase(favouriteRepo,userRepository,houseRepository)
+        val useCase = DeleteFavouriteUseCase(favouriteRepo,userRepository,houseRepository)
 
         val result = useCase.validate(userId, "")
 
@@ -73,11 +72,10 @@ class AddFavouritesUseCaseTest {
         val favouriteRepo = FavouritesRepositoryDouble()
         val userRepository = UserRepositoryDouble().withUserExist(false)
         val houseRepository = HouseRepositoryDouble().withHouseExist(false)
-        val useCase = AddFavouritesUseCase(favouriteRepo,userRepository,houseRepository)
+        val useCase = DeleteFavouriteUseCase(favouriteRepo,userRepository,houseRepository)
 
         val result = useCase.validate(userId, "")
 
         result.shouldBeFalse()
     }
 }
-

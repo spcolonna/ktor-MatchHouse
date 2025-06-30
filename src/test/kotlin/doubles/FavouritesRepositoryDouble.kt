@@ -7,6 +7,8 @@ class FavouritesRepositoryDouble : IFavouriteRepository {
 
     lateinit var storedUserId: String
     lateinit var storedHouseId: String
+    lateinit var removedUserId: String
+    lateinit var removedHouseId: String
     private lateinit var favourites: Favourites
 
     override fun store(userId: String, houseId: String) {
@@ -18,7 +20,8 @@ class FavouritesRepositoryDouble : IFavouriteRepository {
 
     override fun hasFavouriteList(userId: String) = favourites.idUser === userId
     override fun remove(userId: String, houseId: String) {
-        TODO("Not yet implemented")
+        removedHouseId = houseId
+        removedUserId = userId
     }
 
     fun withFavourite(favourites: Favourites) : FavouritesRepositoryDouble {

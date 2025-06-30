@@ -1,8 +1,8 @@
 package com.example.delivery.request
 
-import delivery.dtos.AddFavouriteDto
+import delivery.dtos.FavouriteDto
 
 @kotlinx.serialization.Serializable
 class AddFavoriteRequest(val userId: String, val houseId: String) {
-    fun toDto() = AddFavouriteDto(userId,houseId)
+    fun toDto() = FavouriteDto(userId,houseId)
 }

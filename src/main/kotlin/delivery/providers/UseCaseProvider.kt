@@ -1,6 +1,7 @@
 package delivery.providers
 
 import com.example.domain.useCases.AddHouseToDiscoveryQueueUseCase
+import com.example.domain.useCases.favourites.DeleteFavouriteUseCase
 import com.example.domain.useCases.property.GetHouseByIdUseCase
 import com.example.domain.useCases.property.GetUserHousesUseCase
 import domain.builders.PropertyBuilder
@@ -27,21 +28,24 @@ object UseCaseProvider {
         )
 
     fun getGetHouses() = GetHousesUseCase(RepositoryProvider.getCreateProperty())
-    fun getAddFavourite(): AddFavouritesUseCase {
-        return AddFavouritesUseCase(
-            RepositoryProvider.getFavourite(),
-            RepositoryProvider.getUser(),
-            RepositoryProvider.getCreateProperty()
-        )
-    }
+    fun getAddFavourite() = AddFavouritesUseCase(
+        RepositoryProvider.getFavourite(),
+        RepositoryProvider.getUser(),
+        RepositoryProvider.getCreateProperty()
+    )
 
+    fun getDeleteFavourite() = DeleteFavouriteUseCase(
+        RepositoryProvider.getFavourite(),
+        RepositoryProvider.getUser(),
+        RepositoryProvider.getCreateProperty()
+    )
     fun getFavourite() = GetListFavouriteUseCase(RepositoryProvider.getFavourite())
     fun getGetHousesById() = GetHouseByIdUseCase(RepositoryProvider.getCreateProperty())
     fun getUserHouses() = GetUserHousesUseCase(RepositoryProvider.getUser(), RepositoryProvider.getCreateProperty())
+
     fun getAddHouseToDiscoveryQueue() = AddHouseToDiscoveryQueueUseCase(
         RepositoryProvider.getDiscovery(),
         RepositoryProvider.getCreateProperty(),
         getCalculateDistance())
-
     private fun getCalculateDistance() = CalculateDistanceUseCase()
 }
