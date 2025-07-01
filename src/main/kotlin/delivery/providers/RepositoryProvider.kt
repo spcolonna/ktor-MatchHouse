@@ -1,6 +1,5 @@
 package delivery.providers
 
-import com.example.infra.interfaces.ILocationRepository
 import com.example.infra.repositories.*
 
 object RepositoryProvider {
@@ -13,4 +12,5 @@ object RepositoryProvider {
 
     fun getDiscovery() = FirebaseDiscoveryQueueRepository()
     fun getLocation() = FirebaseLocationRepository()
+    fun getFilter() = FirebaseFilterRepository()
 }

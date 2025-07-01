@@ -49,6 +49,16 @@ fun Route.userRouting(userPresenter: UserPresenter) {
             )
         }
 
+        put("/{userId}/filter") {
+            val userId = call.parameters["userId"]
+            val body = call.receive<UserFilterRequest>()
+
+            userPresenter.storeFilter(
+                body.toDto(userId.toString()),
+                ResponseBuilder(call)
+            )
+        }
+
         get("/{userId}/favorites") {
             val userId = call.parameters["userId"]
 

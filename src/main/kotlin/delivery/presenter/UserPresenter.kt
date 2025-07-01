@@ -1,11 +1,14 @@
 package delivery.presenter
 
 import com.example.delivery.dtos.HouseDto
+import com.example.delivery.dtos.UserFilterDto
 import com.example.delivery.presenter.HousePresenter
 import com.example.delivery.request.AddFavoriteRequest
 import com.example.delivery.request.LoginUserRequest
 import com.example.delivery.response.LoginUserResponse
+import com.example.domain.entities.UserFilter
 import com.example.domain.useCases.favourites.DeleteFavouriteUseCase
+import com.example.domain.useCases.user.StoreFilterUseCase
 import delivery.response.ResponseBuilder
 import delivery.request.CreateUserRequest
 import domain.useCases.favourites.AddFavouritesUseCase
@@ -24,7 +27,8 @@ class UserPresenter(
     private val deleteUserUseCase: DeleteUserUseCase,
     private val addFavouritesUseCase: AddFavouritesUseCase,
     private val getListFavouriteUseCase: GetListFavouriteUseCase,
-    private val removeFavouritesUseCase: DeleteFavouriteUseCase
+    private val removeFavouritesUseCase: DeleteFavouriteUseCase,
+    private val storeFilter: StoreFilterUseCase
 ) {
 
     fun createUser(request: CreateUserRequest, responseBuilder: ResponseBuilder) {
@@ -77,5 +81,13 @@ class UserPresenter(
             responseBuilder.onValid(removeFavouritesUseCase.execute(request.toDto()))
         else
             responseBuilder.onError()
+    }
+
+    fun storeFilter(dto: UserFilterDto, responseBuilder: ResponseBuilder) {
+        if(storeFilter.validate(dto.userId)){
+            responseBuilder.onValid(storeFilter.execute(UserFilter.fromDto(dto)))
+        }else{
+            responseBuilder.onError()
+        }
     }
 }
