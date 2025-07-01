@@ -2,6 +2,7 @@ package com.example
 
 import com.example.delivery.presenter.DiscoveryPresenter
 import com.example.delivery.presenter.HousePresenter
+import com.example.delivery.presenter.LocationPresenter
 import delivery.presenter.UserPresenter
 import delivery.providers.UseCaseProvider
 import io.ktor.server.application.*
@@ -29,6 +30,11 @@ fun Application.configureRouting() {
     val discoveryPresenter = DiscoveryPresenter(
         UseCaseProvider.getAddHouseToDiscoveryQueue()
     )
+    val locationPresenter = LocationPresenter(
+        UseCaseProvider.getCountries(),
+        UseCaseProvider.getDepartments(),
+        UseCaseProvider.getNeighborhoods(),
+        )
 
 
 
@@ -40,5 +46,6 @@ fun Application.configureRouting() {
         userRouting(userPresenter)
         houseRouting(housePresenter)
         discoveryRouting(discoveryPresenter, housePresenter)
+        locationRouting(locationPresenter)
     }
 }

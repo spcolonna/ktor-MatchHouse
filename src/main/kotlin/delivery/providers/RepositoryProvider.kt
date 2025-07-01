@@ -1,9 +1,7 @@
 package delivery.providers
 
-import com.example.infra.repositories.FirebaseDiscoveryQueueRepository
-import com.example.infra.repositories.FirebaseFavouriteRepository
-import com.example.infra.repositories.FirebasePropertyRepository
-import com.example.infra.repositories.FirebaseUserRepository
+import com.example.infra.interfaces.ILocationRepository
+import com.example.infra.repositories.*
 
 object RepositoryProvider {
 
@@ -14,4 +12,5 @@ object RepositoryProvider {
     fun getFavourite() = FirebaseFavouriteRepository()
 
     fun getDiscovery() = FirebaseDiscoveryQueueRepository()
+    fun getLocation() = FirebaseLocationRepository()
 }
