@@ -23,6 +23,17 @@ class StoreFilterUseCaseTest {
     }
 
     @Test
+    fun `update user filter`(){
+        val userFilter = givenAUserFilter()
+        val repository = FilterRepositoryDouble().withExistFilter()
+        val useCase = StoreFilterUseCase(repository, UserRepositoryDouble())
+
+        useCase.execute(userFilter)
+
+        repository.updatedUserFilter.shouldBe(userFilter)
+    }
+
+    @Test
     fun `validate user`(){
         val userRepository = UserRepositoryDouble().withUserExist(true)
         val useCase = StoreFilterUseCase(FilterRepositoryDouble(), userRepository)

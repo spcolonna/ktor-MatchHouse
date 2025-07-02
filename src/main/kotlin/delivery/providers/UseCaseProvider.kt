@@ -7,6 +7,7 @@ import com.example.domain.useCases.locations.GetDepartmentsUseCase
 import com.example.domain.useCases.locations.GetNeighborhoodsUseCase
 import com.example.domain.useCases.property.GetHouseByIdUseCase
 import com.example.domain.useCases.property.GetUserHousesUseCase
+import com.example.domain.useCases.user.GetFilterUseCase
 import com.example.domain.useCases.user.StoreFilterUseCase
 import domain.builders.PropertyBuilder
 import domain.useCases.CalculateDistanceUseCase
@@ -56,4 +57,5 @@ object UseCaseProvider {
     fun getDepartments() = GetDepartmentsUseCase(RepositoryProvider.getLocation())
     fun getNeighborhoods() = GetNeighborhoodsUseCase(RepositoryProvider.getLocation())
     fun getStoreFilter() = StoreFilterUseCase(RepositoryProvider.getFilter(), RepositoryProvider.getUser())
+    fun getGetFilter() = GetFilterUseCase(RepositoryProvider.getFilter(), RepositoryProvider.getUser())
 }

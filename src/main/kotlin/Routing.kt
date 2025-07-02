@@ -26,7 +26,8 @@ fun Application.configureRouting() {
         UseCaseProvider.getAddFavourite(),
         UseCaseProvider.getFavourite(),
         UseCaseProvider.getDeleteFavourite(),
-        UseCaseProvider.getStoreFilter()
+        UseCaseProvider.getStoreFilter(),
+        UseCaseProvider.getGetFilter()
     )
     val discoveryPresenter = DiscoveryPresenter(
         UseCaseProvider.getAddHouseToDiscoveryQueue()

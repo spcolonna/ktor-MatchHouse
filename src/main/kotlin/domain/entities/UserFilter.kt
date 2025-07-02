@@ -29,6 +29,20 @@ data class UserFilter(
     companion object {
         fun fromDto(dto: UserFilterDto) =
             UserFilter(dto.userId,dto.country,dto.department,dto.neighborhood,dto.minPrice,dto.maxPrice,dto.bedrooms,dto.bathrooms,dto.area)
+
+        fun fromMap(userId: String, map: Map<String, Any>): UserFilter {
+            return UserFilter(
+                userId = userId,
+                country = map["country"] as? String ?: "Uruguay",
+                department = map["department"] as? String ?: "",
+                neighborhood = map["neighborhood"] as? String ?: "",
+                minPrice = (map["minPrice"] as? Number)?.toDouble() ?: 0.0,
+                maxPrice = (map["maxPrice"] as? Number)?.toDouble() ?: 500000.0,
+                bedrooms = (map["bedrooms"] as? Number)?.toInt() ?: 0,
+                bathrooms = (map["bathrooms"] as? Number)?.toInt() ?: 0,
+                area = (map["area"] as? Number)?.toInt() ?: 0
+            )
+        }
     }
 
 }
