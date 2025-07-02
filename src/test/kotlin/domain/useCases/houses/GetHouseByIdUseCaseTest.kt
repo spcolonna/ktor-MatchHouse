@@ -55,6 +55,24 @@ class GetHouseByIdUseCaseTest {
         bedrooms: Int = 0,
         bathrooms: Int = 0,
         area: Double = 0.0,
-        imagesUrl: List<String> = listOf()
-    ) = House(houseId,ownerId,point,title, price, bedrooms, bathrooms, area, imagesUrl)
+        imagesUrl: List<String> = listOf(),
+        country: String = "",
+        department: String = "",
+        neighborhood: String = ""
+    ) =
+        House(
+            houseId,
+            ownerId,
+            point,
+            title,
+            price,
+            bedrooms,
+            bathrooms,
+            area,
+            imagesUrl,
+            "",
+            country,
+            department,
+            neighborhood
+        )
 }

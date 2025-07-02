@@ -19,17 +19,16 @@ import java.io.InputStream
  * 2. Asegúrate de que tu 'serviceAccountKey.json' esté en 'src/main/resources'.
  * 3. Haz clic derecho en este archivo en tu IDE y selecciona "Run".
  */
-suspend fun main() {
+fun main() {
     // --- Inicialización de Firebase (necesaria para que el script se conecte) ---
     val serviceAccount: InputStream? = Thread.currentThread().contextClassLoader.getResourceAsStream("serviceAccountKey.json")
     if (serviceAccount == null) {
         println("ERROR: No se encontró el archivo serviceAccountKey.json.")
         return
     }
-    // NUEVO: Añadimos la URL del bucket de Storage a las opciones
     val options: FirebaseOptions = FirebaseOptions.builder()
         .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-        .setStorageBucket("matchhouse-ca5a8.appspot.com") // <-- IMPORTANTE: Reemplaza con el ID de tu bucket
+        .setStorageBucket("matchhouse-ca5a8.firebasestorage.app")
         .build()
 
     if (FirebaseApp.getApps().isEmpty()) {
@@ -39,7 +38,7 @@ suspend fun main() {
     // --------------------------------------------------------------------------
 
     val db = FirestoreClient.getFirestore()
-    val storage = StorageClient.getInstance().bucket() // NUEVO: Obtenemos la instancia de Storage
+    val storage = StorageClient.getInstance().bucket()
     val firestoreBatch = db.batch()
     var firestoreDeleteCounter = 0
 
@@ -88,26 +87,29 @@ suspend fun main() {
         println("No se encontraron documentos para eliminar en Firestore.")
     }
 
-    // --- NUEVO: PASO 6 - BORRAR ARCHIVOS DE STORAGE ---
-    println("Paso 6: Eliminando archivos de imágenes de Firebase Storage...")
+    println("Iniciando proceso de limpieza de Storage...")
     var storageDeleteCounter = 0
-    for (houseId in houseIds) {
-        // Obtenemos todos los blobs (archivos) dentro de la carpeta de la casa
-        val blobs = storage.list(
-            com.google.cloud.storage.Storage.BlobListOption.prefix("houses/$houseId/")
-        ).values
 
+    val blobs = storage.list(
+        com.google.cloud.storage.Storage.BlobListOption.prefix("houses/")
+    ).values
+
+    if (blobs.none()) {
+        println("No se encontraron archivos en la carpeta 'houses/' de Storage.")
+    } else {
         for (blob in blobs) {
-            blob.delete()
-            println(" -> Archivo borrado: ${blob.name}")
-            storageDeleteCounter++
+            try {
+                blob.delete()
+                println(" -> Archivo de Storage borrado: ${blob.name}")
+                storageDeleteCounter++
+            } catch (e: Exception) {
+                println(" -> ERROR al borrar el archivo ${blob.name}: ${e.message}")
+            }
         }
     }
 
     if (storageDeleteCounter > 0) {
         println("¡Limpieza de Storage completada! Se eliminaron $storageDeleteCounter archivos.")
-    } else {
-        println("No se encontraron archivos para eliminar en Storage.")
     }
 
     println("--- PROCESO DE LIMPIEZA FINALIZADO ---")

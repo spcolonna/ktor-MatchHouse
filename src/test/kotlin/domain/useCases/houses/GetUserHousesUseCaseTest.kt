@@ -71,7 +71,10 @@ class GetUserHousesUseCaseTest {
         bedrooms: Int = 0,
         bathrooms: Int = 0,
         area: Double = 0.0,
-        imagesUrl: List<String> = listOf()
+        imagesUrl: List<String> = listOf(),
+        country: String = "",
+        department: String = "",
+        neighborhood: String = ""
     ) =
         House(
             id,
@@ -82,6 +85,10 @@ class GetUserHousesUseCaseTest {
             bedrooms,
             bathrooms,
             area,
-            imagesUrl
+            imagesUrl,
+            "",
+            country,
+            department,
+            neighborhood
         )
 }

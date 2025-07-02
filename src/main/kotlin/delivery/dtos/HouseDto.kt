@@ -14,7 +14,10 @@ data class HouseDto(
     val bedrooms: Int,
     val bathrooms: Int,
     val area: Double,
-    val imageUrls: List<String>
+    val imageUrls: List<String>,
+    val country: String,
+    val department: String,
+    val neighborhood: String,
 ){
     companion object {
         fun from(property: House) =
@@ -26,6 +29,9 @@ data class HouseDto(
                 property.bedrooms,
                 property.bathrooms,
                 property.area,
-                property.imageUrls)
+                property.imageUrls,
+                property.country,
+                property.department,
+                property.neighborhood)
     }
 }

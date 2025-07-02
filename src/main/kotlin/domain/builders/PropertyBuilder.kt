@@ -15,7 +15,11 @@ class PropertyBuilder(private val idGenerator: IIdGenerator) {
         dto.bedrooms,
         dto.bathrooms,
         dto.area,
-        dto.imageUrls
+        dto.imageUrls,
+        "",//TODO: No se si está bien que esté asi
+        dto.country,
+        dto.department,
+        dto.neighborhood
     )
 
 }

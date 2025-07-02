@@ -11,7 +11,10 @@ class CreateHouseDto(
     val bedrooms: Int,
     val bathrooms: Int,
     val area: Double,
-    val imageUrls: List<String>
+    val imageUrls: List<String>,
+    val country: String,
+    val department: String,
+    val neighborhood: String,
 ) {
     companion object {
         fun fromRequest(request: CreateHouseRequest): CreateHouseDto {
@@ -24,9 +27,11 @@ class CreateHouseDto(
                 request.bedrooms,
                 request.bathrooms,
                 request.area,
-                request.imageUrls
+                request.imageUrls,
+                request.country,
+                request.department,
+                request.neighborhood
             )
         }
     }
-
 }

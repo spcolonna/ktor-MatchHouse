@@ -36,7 +36,10 @@ class FirebasePropertyRepository : ICreateHouseRepository, IHouseRepository {
                 bedrooms = (document.get("bedrooms") as? Number ?: 0).toInt(),
                 bathrooms = (document.get("bathrooms") as? Number ?: 0).toInt(),
                 area = (document.get("area") as? Number ?: 0.0).toDouble(),
-                imageUrls = imageUrls
+                imageUrls = imageUrls,
+                country = document.getString("country") ?: "",
+                department = document.getString("department") ?: "",
+                neighborhood = document.getString("neighborhood") ?: ""
             )
         } catch (e: Exception) {
             println("Error de formato al parsear el documento ${document.id}: ${e.message}")
@@ -66,6 +69,9 @@ class FirebasePropertyRepository : ICreateHouseRepository, IHouseRepository {
             "area" to property.area,
             "imageUrls" to property.imageUrls,
             "geohash" to geoHash,
+            "country" to property.country,
+            "department" to property.department,
+            "neighborhood" to property.neighborhood,
             "createdAt" to com.google.cloud.Timestamp.now()
         )
 

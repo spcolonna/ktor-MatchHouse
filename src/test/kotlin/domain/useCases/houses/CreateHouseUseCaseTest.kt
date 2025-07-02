@@ -1,5 +1,6 @@
 package com.example.domain.useCases.houses
 
+import com.example.delivery.dtos.HouseDto
 import delivery.dtos.CreateHouseDto
 import domain.entities.House
 import domain.useCases.property.CreateHouseUseCase
@@ -19,7 +20,7 @@ class CreateHouseUseCaseTest {
         val lon = 0.0
         val lat = 0.0
         val expected = givenAHouse(id, ownerId, Point(lon, lat))
-        val dto = CreateHouseDto(ownerId, lon, lat, "", 0, 0, 0, 0.0, listOf())
+        val dto = givenACreateHouseDto(ownerId, lon, lat)
         val idGenerator = IdGeneratorDouble(id)
         val repository = CreateHouseRepositoryDouble()
 
@@ -37,7 +38,7 @@ class CreateHouseUseCaseTest {
         val lon = 0.1
         val lat = 0.1
         val expected = givenAHouse(id, ownerId, Point(lon, lat))
-        val dto = CreateHouseDto(ownerId, lon, lat, "", 0, 0, 0, 0.0, listOf())
+        val dto = givenACreateHouseDto(ownerId, lon, lat)
         val idGenerator = IdGeneratorDouble(id)
         val repository = CreateHouseRepositoryDouble()
         val useCase = CreateHouseUseCase(repository, PropertyBuilder(idGenerator))
@@ -59,7 +60,7 @@ class CreateHouseUseCaseTest {
         val bathrooms = 1
         val area = 23.4
         val expected = givenAHouse(id, ownerId, Point(lon, lat), title, price, bedrooms, bathrooms, area)
-        val dto = CreateHouseDto(ownerId, lon, lat, title, price, bedrooms, bathrooms, area, listOf())
+        val dto = givenACreateHouseDto(ownerId, lon, lat, title, price, bedrooms, bathrooms, area, listOf())
         val idGenerator = IdGeneratorDouble(id)
         val repository = CreateHouseRepositoryDouble()
 
@@ -79,7 +80,10 @@ class CreateHouseUseCaseTest {
         bedrooms: Int = 0,
         bathrooms: Int = 0,
         area: Double = 0.0,
-        imagesUrl: List<String> = listOf()
+        imagesUrl: List<String> = listOf(),
+        country: String = "",
+        department: String = "",
+        neighborhood: String = ""
     ) =
         House(
             id,
@@ -90,7 +94,40 @@ class CreateHouseUseCaseTest {
             bedrooms,
             bathrooms,
             area,
-            imagesUrl
+            imagesUrl,
+            "",
+            country,
+            department,
+            neighborhood
+        )
+
+    private fun givenACreateHouseDto(
+        ownerId: String,
+        lon: Double,
+        lat: Double,
+        title: String = "",
+        price: Int = 0,
+        bedrooms: Int = 0,
+        bathrooms: Int = 0,
+        area: Double = 0.0,
+        imagesUrl: List<String> = listOf(),
+        country: String = "",
+        department: String = "",
+        neighborhood: String = ""
+    ) =
+        CreateHouseDto(
+            ownerId,
+            lon,
+            lat,
+            title,
+            price,
+            bedrooms,
+            bathrooms,
+            area,
+            imagesUrl,
+            country,
+            department,
+            neighborhood
         )
 }
 
