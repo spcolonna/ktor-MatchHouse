@@ -49,7 +49,7 @@ fun Route.userRouting(userPresenter: UserPresenter) {
             )
         }
 
-        put("/{userId}/filter") {
+        put("/{userId}/filters") {
             val userId = call.parameters["userId"]
             val body = call.receive<UserFilterRequest>()
 
@@ -59,7 +59,7 @@ fun Route.userRouting(userPresenter: UserPresenter) {
             )
         }
 
-        get("/{userId}/filter") {
+        get("/{userId}/filters") {
             val userId = call.parameters["userId"]
 
             userPresenter.getFilter(

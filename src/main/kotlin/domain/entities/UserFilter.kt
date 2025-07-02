@@ -26,6 +26,9 @@ data class UserFilter(
         )
     }
 
+    fun toDto() =
+        UserFilterDto(userId,country, department, neighborhood, minPrice, maxPrice, bedrooms, bathrooms, area)
+
     companion object {
         fun fromDto(dto: UserFilterDto) =
             UserFilter(dto.userId,dto.country,dto.department,dto.neighborhood,dto.minPrice,dto.maxPrice,dto.bedrooms,dto.bathrooms,dto.area)

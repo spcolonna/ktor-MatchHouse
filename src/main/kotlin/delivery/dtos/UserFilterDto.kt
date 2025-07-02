@@ -1,5 +1,8 @@
 package com.example.delivery.dtos
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 class UserFilterDto(
     val userId: String,
     val country: String,

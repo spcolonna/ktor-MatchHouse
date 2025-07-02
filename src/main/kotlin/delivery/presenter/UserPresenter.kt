@@ -95,7 +95,7 @@ class UserPresenter(
 
     fun getFilter(userId: String, responseBuilder: ResponseBuilder) {
         if(getFilter.validate(userId)){
-            responseBuilder.onValid(getFilter.execute(userId))
+            responseBuilder.onValid(getFilter.execute(userId).toDto())
         }else{
             responseBuilder.onError()
         }
