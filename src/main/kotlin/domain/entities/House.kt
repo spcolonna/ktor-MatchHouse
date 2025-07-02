@@ -11,5 +11,6 @@ data class House(
     val bedrooms: Int,
     val bathrooms: Int,
     val area: Double,
-    val imageUrls: List<String>
+    val imageUrls: List<String>,
+    var geohash: String? = null
 )

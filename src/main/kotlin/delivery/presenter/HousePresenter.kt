@@ -3,8 +3,11 @@ package com.example.delivery.presenter
 import com.example.delivery.dtos.HouseDto
 import com.example.delivery.request.CreateHouseRequest
 import com.example.delivery.request.UserPositionRequest
+import com.example.domain.useCases.houses.GetNearbyHousesUseCase
 import com.example.domain.useCases.property.GetHouseByIdUseCase
 import com.example.domain.useCases.property.GetUserHousesUseCase
+import com.firebase.geofire.GeoFireUtils
+import com.firebase.geofire.GeoLocation
 import delivery.dtos.CreateHouseDto
 import delivery.response.ResponseBuilder
 import domain.entities.Point
@@ -17,48 +20,28 @@ class HousePresenter(
     private val createPropertyUseCase: CreateHouseUseCase,
     private val getHousesUseCase: GetHousesUseCase,
     private val getHouseByIdUseCase: GetHouseByIdUseCase,
-    private val getUserHousesUseCase: GetUserHousesUseCase
+    private val getUserHousesUseCase: GetUserHousesUseCase,
+    private val getNearbyHousesUseCase: GetNearbyHousesUseCase
 ) {
     fun nearbyHouses(body: UserPositionRequest, responseBuilder: ResponseBuilder) {
-        println("Buscando casas cerca de lat: $body.lat, lon: $body.lon")
+        val lat = body.lat ?: return responseBuilder.onError("Latitud requerida.")
+        val lon = body.lon ?: return responseBuilder.onError("Longitud requerida.")
 
-        val nearbyHouses = listOf(
-            HouseDto(
-                id = UUID.randomUUID().toString(),
-                ownerId = UUID.randomUUID().toString(),
-                title = "Chalet Moderno en Carrasco",
-                point = Point(lat = -34.88, lon = -56.05),
-                price = 350000,
-                bedrooms = 4,
-                bathrooms = 3,
-                area = 220.0,
-                imageUrls = listOf()
-            ),
-            HouseDto(
-                id = UUID.randomUUID().toString(),
-                ownerId = UUID.randomUUID().toString(),
-                title = "Apartamento Céntrico",
-                point = Point(lat = -34.90, lon = -56.18),
-                price = 180000,
-                bedrooms = 2,
-                bathrooms = 1,
-                area = 75.5,
-                imageUrls = listOf()
-            ),
-            HouseDto(
-                id = UUID.randomUUID().toString(),
-                ownerId = UUID.randomUUID().toString(),
-                title = "Casa con Jardín en el Prado",
-                point = Point(lat = -34.85, lon = -56.20),
-                price = 320000,
-                bedrooms = 5,
-                bathrooms = 4,
-                area = 300.0,
-                imageUrls = listOf()
-            )
-        )
+        try {
+            val nearbyHouses = getNearbyHousesUseCase.execute(lat, lon, 10000.0)
 
-        responseBuilder.onValid(nearbyHouses)
+            val sortedAndLimited = nearbyHouses.sortedBy { house ->
+                GeoFireUtils.getDistanceBetween(
+                    GeoLocation(house.point.lat, house.point.lon),
+                    GeoLocation(lat, lon)
+                )
+            }.take(10)
+
+            responseBuilder.onValid(sortedAndLimited.map { HouseDto.from(it) })
+        } catch (e: Exception) {
+            println("Error al buscar casas cercanas: ${e.message}")
+            responseBuilder.onError("No se pudieron encontrar casas cercanas.")
+        }
     }
 
     fun createHouse(request: CreateHouseRequest, responseBuilder: ResponseBuilder) {

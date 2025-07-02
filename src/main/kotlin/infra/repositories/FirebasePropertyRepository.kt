@@ -7,6 +7,8 @@ import com.google.firebase.cloud.FirestoreClient
 import domain.entities.Point
 import domain.entities.House
 import infra.interfaces.ICreateHouseRepository
+import com.firebase.geofire.GeoFireUtils
+import com.firebase.geofire.GeoLocation
 
 class FirebasePropertyRepository : ICreateHouseRepository, IHouseRepository {
 
@@ -48,6 +50,11 @@ class FirebasePropertyRepository : ICreateHouseRepository, IHouseRepository {
         val houseDocument = housesCollection.document(houseId)
         property.id = houseId
 
+        val geoHash = GeoFireUtils.getGeoHashForLocation(
+            GeoLocation(property.point.lat, property.point.lon)
+        )
+        property.geohash = geoHash
+
         val houseData = mapOf(
             "id" to houseId,
             "ownerId" to property.ownerId,
@@ -58,6 +65,7 @@ class FirebasePropertyRepository : ICreateHouseRepository, IHouseRepository {
             "bathrooms" to property.bathrooms,
             "area" to property.area,
             "imageUrls" to property.imageUrls,
+            "geohash" to geoHash,
             "createdAt" to com.google.cloud.Timestamp.now()
         )
 
@@ -96,5 +104,38 @@ class FirebasePropertyRepository : ICreateHouseRepository, IHouseRepository {
         val query = housesCollection.whereEqualTo("ownerId", userId)
         val querySnapshot = query.get().get()
         return querySnapshot.documents.mapNotNull { documentToProperty(it) }
+    }
+
+    override fun findNearbyHouses(lat: Double, lon: Double, radiusInM: Double): List<House> {
+        val center = GeoLocation(lat, lon)
+
+        val bounds = GeoFireUtils.getGeoHashQueryBounds(center, radiusInM)
+        val tasks = mutableListOf<com.google.api.core.ApiFuture<com.google.cloud.firestore.QuerySnapshot>>()
+
+        for (b in bounds) {
+            val query = db.collection(documentName)
+                .orderBy("geohash")
+                .startAt(b.startHash)
+                .endAt(b.endHash)
+            tasks.add(query.get())
+        }
+
+        val matchingDocs = mutableListOf<House>()
+
+        for (task in tasks) {
+            val snap = task.get()
+            for (doc in snap.documents) {
+                val docLat = doc.getGeoPoint("point")?.latitude ?: continue
+                val docLon = doc.getGeoPoint("point")?.longitude ?: continue
+                val docLocation = GeoLocation(docLat, docLon)
+
+                val distanceInM = GeoFireUtils.getDistanceBetween(docLocation, center)
+                if (distanceInM <= radiusInM) {
+                    documentToProperty(doc)?.let { matchingDocs.add(it) }
+                }
+            }
+        }
+
+        return matchingDocs
     }
 }

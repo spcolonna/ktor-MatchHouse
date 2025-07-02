@@ -25,4 +25,8 @@ class HouseRepositoryDouble : IHouseRepository {
     override fun getHouseById(houseId: String) = houses.first { it.id == houseId }
     override fun getUserHouses(userId: String) = houses.filter { it.ownerId == userId }
 
+    override fun findNearbyHouses(lat: Double, lon: Double, radiusInM: Double): List<House> {
+        TODO("Not yet implemented")
+    }
+
 }

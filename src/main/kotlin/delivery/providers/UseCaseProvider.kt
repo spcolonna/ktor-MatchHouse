@@ -2,6 +2,7 @@ package delivery.providers
 
 import com.example.domain.useCases.AddHouseToDiscoveryQueueUseCase
 import com.example.domain.useCases.favourites.DeleteFavouriteUseCase
+import com.example.domain.useCases.houses.GetNearbyHousesUseCase
 import com.example.domain.useCases.locations.GetCountriesUseCase
 import com.example.domain.useCases.locations.GetDepartmentsUseCase
 import com.example.domain.useCases.locations.GetNeighborhoodsUseCase
@@ -28,29 +29,29 @@ object UseCaseProvider {
 
     fun getCreateProperty() =
         CreateHouseUseCase(
-            RepositoryProvider.getCreateProperty(),
+            RepositoryProvider.getProperty(),
             PropertyBuilder(ServiceProvider.getIdGenerator())
         )
 
-    fun getGetHouses() = GetHousesUseCase(RepositoryProvider.getCreateProperty())
+    fun getGetHouses() = GetHousesUseCase(RepositoryProvider.getProperty())
     fun getAddFavourite() = AddFavouritesUseCase(
         RepositoryProvider.getFavourite(),
         RepositoryProvider.getUser(),
-        RepositoryProvider.getCreateProperty()
+        RepositoryProvider.getProperty()
     )
 
     fun getDeleteFavourite() = DeleteFavouriteUseCase(
         RepositoryProvider.getFavourite(),
         RepositoryProvider.getUser(),
-        RepositoryProvider.getCreateProperty()
+        RepositoryProvider.getProperty()
     )
     fun getFavourite() = GetListFavouriteUseCase(RepositoryProvider.getFavourite())
-    fun getGetHousesById() = GetHouseByIdUseCase(RepositoryProvider.getCreateProperty())
-    fun getUserHouses() = GetUserHousesUseCase(RepositoryProvider.getUser(), RepositoryProvider.getCreateProperty())
+    fun getGetHousesById() = GetHouseByIdUseCase(RepositoryProvider.getProperty())
+    fun getUserHouses() = GetUserHousesUseCase(RepositoryProvider.getUser(), RepositoryProvider.getProperty())
 
     fun getAddHouseToDiscoveryQueue() = AddHouseToDiscoveryQueueUseCase(
         RepositoryProvider.getDiscovery(),
-        RepositoryProvider.getCreateProperty(),
+        RepositoryProvider.getProperty(),
         getCalculateDistance())
     private fun getCalculateDistance() = CalculateDistanceUseCase()
     fun getCountries() = GetCountriesUseCase(RepositoryProvider.getLocation())
@@ -58,4 +59,5 @@ object UseCaseProvider {
     fun getNeighborhoods() = GetNeighborhoodsUseCase(RepositoryProvider.getLocation())
     fun getStoreFilter() = StoreFilterUseCase(RepositoryProvider.getFilter(), RepositoryProvider.getUser())
     fun getGetFilter() = GetFilterUseCase(RepositoryProvider.getFilter(), RepositoryProvider.getUser())
+    fun getNearbyHouses() = GetNearbyHousesUseCase(RepositoryProvider.getProperty())
 }

@@ -15,8 +15,17 @@ application {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.withType<Copy> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.withType<Tar> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
 repositories {
     mavenCentral()
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
@@ -33,6 +42,7 @@ dependencies {
     testImplementation("org.mockito:mockito-inline:5.2.0")
 
     implementation("com.google.firebase:firebase-admin:9.3.0")
+
 
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.server.core)

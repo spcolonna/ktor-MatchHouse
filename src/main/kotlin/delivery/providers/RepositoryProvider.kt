@@ -6,7 +6,7 @@ object RepositoryProvider {
 
     fun getUser() = FirebaseUserRepository()
 
-    fun getCreateProperty() = FirebasePropertyRepository()
+    fun getProperty() = FirebasePropertyRepository()
 
     fun getFavourite() = FirebaseFavouriteRepository()
 

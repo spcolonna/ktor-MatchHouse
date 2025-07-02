@@ -15,7 +15,8 @@ fun Application.configureRouting() {
         UseCaseProvider.getCreateProperty(),
         UseCaseProvider.getGetHouses(),
         UseCaseProvider.getGetHousesById(),
-        UseCaseProvider.getUserHouses()
+        UseCaseProvider.getUserHouses(),
+        UseCaseProvider.getNearbyHouses()
     )
     val userPresenter = UserPresenter(
         housePresenter,
