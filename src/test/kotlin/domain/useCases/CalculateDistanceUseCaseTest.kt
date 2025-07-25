@@ -7,7 +7,7 @@ import kotlin.test.Test
 
 class CalculateDistanceUseCaseTest {
     @Test
-    fun `calculate Distance Between Two Points`(){
+    fun `calculate Distance Between Two Points XX`(){
         val point1 = Point(0.0,0.0);
         val point2 = Point(0.0,0.0);
         val useCase = CalculateDistanceUseCase();
