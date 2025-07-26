@@ -47,5 +47,14 @@ fun Route.discoveryRouting(
                 ResponseBuilder(call)
             )
         }
+
+        get("/{userId}") {
+            val userId = call.parameters["userId"]
+
+            discoveryPresenter.getDiscoveryHouses(
+                userId.toString(),
+                ResponseBuilder(call)
+            )
+        }
     }
 }

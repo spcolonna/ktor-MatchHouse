@@ -1,7 +1,6 @@
 
     package com.example.infra.repositories
 
-    import com.example.domain.useCases.ClearDiscoveryQueueUseCase
     import com.example.infra.interfaces.IDiscoveryListRepository
     import com.google.cloud.Timestamp
     import com.google.cloud.firestore.Firestore

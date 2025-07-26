@@ -1,5 +1,6 @@
 package com.example.domain.useCases
 
+import com.example.domain.useCases.discovery.GetDiscoveryQueueUseCase
 import com.example.doubles.DiscoveryListRepositoryDouble
 import io.kotest.matchers.collections.shouldContainExactly
 import kotlin.test.Test

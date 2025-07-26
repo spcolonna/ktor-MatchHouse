@@ -31,7 +31,8 @@ fun Application.configureRouting() {
         UseCaseProvider.getGetFilter()
     )
     val discoveryPresenter = DiscoveryPresenter(
-        UseCaseProvider.getAddHouseToDiscoveryQueue()
+        UseCaseProvider.getAddHouseToDiscoveryQueue(),
+        UseCaseProvider.getDiscoveryHouseQueue()
     )
     val locationPresenter = LocationPresenter(
         UseCaseProvider.getCountries(),

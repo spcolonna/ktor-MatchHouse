@@ -1,5 +1,6 @@
 package com.example.domain.useCases
 
+import com.example.domain.useCases.discovery.RemoveHouseFromDiscoveryQueueUseCase
 import com.example.doubles.DiscoveryListRepositoryDouble
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe

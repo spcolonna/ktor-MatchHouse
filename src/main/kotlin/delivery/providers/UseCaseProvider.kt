@@ -1,6 +1,7 @@
 package delivery.providers
 
 import com.example.domain.useCases.AddHouseToDiscoveryQueueUseCase
+import com.example.domain.useCases.discovery.GetDiscoveryQueueUseCase
 import com.example.domain.useCases.favourites.DeleteFavouriteUseCase
 import com.example.domain.useCases.houses.GetNearbyHousesUseCase
 import com.example.domain.useCases.locations.GetCountriesUseCase
@@ -10,6 +11,7 @@ import com.example.domain.useCases.property.GetHouseByIdUseCase
 import com.example.domain.useCases.property.GetUserHousesUseCase
 import com.example.domain.useCases.user.GetFilterUseCase
 import com.example.domain.useCases.user.StoreFilterUseCase
+import com.example.infra.interfaces.IDiscoveryListRepository
 import domain.builders.PropertyBuilder
 import domain.useCases.CalculateDistanceUseCase
 import domain.useCases.favourites.AddFavouritesUseCase
@@ -60,4 +62,7 @@ object UseCaseProvider {
     fun getStoreFilter() = StoreFilterUseCase(RepositoryProvider.getFilter(), RepositoryProvider.getUser())
     fun getGetFilter() = GetFilterUseCase(RepositoryProvider.getFilter(), RepositoryProvider.getUser())
     fun getNearbyHouses() = GetNearbyHousesUseCase(RepositoryProvider.getProperty())
+    fun getDiscoveryHouseQueue(): GetDiscoveryQueueUseCase {
+        return GetDiscoveryQueueUseCase(RepositoryProvider.getDiscovery())
+    }
 }

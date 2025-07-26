@@ -1,4 +1,4 @@
-package com.example.domain.useCases
+package com.example.domain.useCases.discovery
 
 import com.example.infra.interfaces.IDiscoveryListRepository
 
